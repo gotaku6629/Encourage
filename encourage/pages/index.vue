@@ -87,5 +87,18 @@
 <script>
 export default {
   name: 'IndexPage',
+
+  created() {
+  this.$fire.auth.onAuthStateChanged((user) => {
+    if (user) {
+      this.user = user
+      if (this.user.photoURL === "sample") {
+        this.user.photoURL = null
+      }
+    } else {
+      this.user = null
+    }
+  })
+},
 }
 </script>

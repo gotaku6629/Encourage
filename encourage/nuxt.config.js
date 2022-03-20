@@ -43,6 +43,34 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    //'@nuxtjs/dotenv',
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: "AIzaSyCrJdQS9r5emhmvpJrLaLAR9tOf42UDCBI",
+          authDomain: "encourage-oc2022.firebaseapp.com",
+          projectId: "encourage-oc2022",
+          storageBucket: "encourage-oc2022.appspot.com",
+          messagingSenderId: "659916435703",
+          appId: "1:659916435703:web:22d890be38d7c83c2223f2",
+          measurementId: "G-NG16JJ15JE"
+        },
+        services: {
+          auth: {
+            emulatorPort: process.env.NODE_ENV === 'development' ? 9099 : undefined
+          },
+          firestore: {
+            emulatorPort: process.env.NODE_ENV === 'development' ? 8080 : undefined
+          },
+          functions: {
+            location: 'asia-northeast1',
+            emulatorPort: process.env.NODE_ENV === 'development' ? 5001 : undefined
+          },
+          storage: true,
+        }
+      }
+    ]
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
