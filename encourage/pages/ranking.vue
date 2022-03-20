@@ -6,6 +6,10 @@
         <bar-chart :chart-data="datacollection"></bar-chart>
         <button @click="fillData()">Randomize</button>
       </div>
+      <v-card-actions>
+        <v-spacer />
+        <v-btn color="primary" nuxt to="/"> Back to Top page </v-btn>
+      </v-card-actions>
     </v-col>
   </v-row>
 </template>
