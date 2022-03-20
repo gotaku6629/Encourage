@@ -5,7 +5,7 @@
       <div id="app" align="center">
         <section class="user-log-in">
           <div class="user-log-in-body">
-            <div class="log-in_phrase">Encourage SignIN</div>
+            <div class="log-in_phrase">Encourage Sign in</div>
             <div class="log-in-main">
               <div class="box">
                 <div class="field">
