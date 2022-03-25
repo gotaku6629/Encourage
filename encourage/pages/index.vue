@@ -1,104 +1,127 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
-      <v-card class="logo py-4 d-flex justify-center">
-        <NuxtLogo />
-        <VuetifyLogo />
-      </v-card>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
+  <v-app>
+    <v-row justify="center" align="center">
+      <v-col cols="12" sm="8" md="6">
+        <v-card>
+          <v-card-text>
+            <v-card color="#000000">
+              <v-card-title class="justify-center">Level</v-card-title>
+              <center>
+                <v-card-text>8 </v-card-text>
+                <v-card-text> 1st / 100000 </v-card-text>
+              </center>
+            </v-card>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn color="primary" nuxt to="/ranking"> Go to Ranking </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-content>
+      <v-card class="mt-5 mt-8" color="black">
+        <v-card-title> 就活イベント</v-card-title>
         <v-card-text>
-          <p>
-            Vuetify is a progressive Material Design component framework for
-            Vue.js. It was designed to empower developers to create amazing
-            applications.
-          </p>
-          <p>
-            For more information on Vuetify, check out the
-            <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              documentation </a
-            >.
-          </p>
-          <p>
-            If you have questions, please join the official
-            <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-            >
-              discord </a
-            >.
-          </p>
-          <p>
-            Find a bug? Report it on the github
-            <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-            >
-              issue board </a
-            >.
-          </p>
-          <p>
-            Thank you for developing with Vuetify and I look forward to bringing
-            more exciting features in the future.
-          </p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3" />
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt Documentation
-          </a>
-          <br />
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
+          <v-container>
+            <v-row>
+              <v-col cols="6">
+                <v-card @click="viewEventList1">
+                  <v-card-title class="justify-center"> 就活講座 </v-card-title>
+                </v-card>
+              </v-col>
+              <v-col cols="6">
+                <v-card @click="viewEventList2">
+                  <v-card-title class="justify-center"> キャリア設計 </v-card-title>
+                </v-card>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="6">
+                <v-card @click="viewEventList3">
+                  <v-card-title class="justify-center">合同説明会</v-card-title>
+                </v-card>
+              </v-col>
+              <v-col cols="6">
+                <v-card @click="viewEventList4">
+                  <v-card-title class="justify-center">個社説明会</v-card-title>
+                </v-card>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="6">
+                <v-card @click="viewEventList5">
+                  <v-card-title class="justify-center">自己分析</v-card-title>
+                </v-card>
+              </v-col>
+              <v-col cols="6">
+                <v-card @click="viewEventList6">
+                  <v-card-title class="justify-center">ES</v-card-title>
+                </v-card>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="6">
+                <v-card @click="viewEventList7">
+                  <v-card-title class="justify-center">GD</v-card-title>
+                </v-card>
+              </v-col>
+              <v-col cols="6">
+                <v-card @click="viewEventList8">
+                  <v-card-title class="justify-center">面接</v-card-title>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-container>
         </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" nuxt to="/ranking"> Go to Ranking </v-btn>
-        </v-card-actions>        
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" nuxt to="/inspire"> Go to Inspire </v-btn>
-        </v-card-actions>
       </v-card>
-    </v-col>
-  </v-row>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
 export default {
   name: 'IndexPage',
-
+  data: () => ({
+    justify: ['start', 'center', 'end', 'space-around', 'space-between'],
+  }),
   created() {
-  this.$fire.auth.onAuthStateChanged((user) => {
-    if (user) {
-      this.user = user
-      if (this.user.photoURL === "sample") {
-        this.user.photoURL = null
+    this.$fire.auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.user = user
+        if (this.user.photoURL === 'sample') {
+          this.user.photoURL = null
+        }
+      } else {
+        this.user = null
       }
-    } else {
-      this.user = null
-    }
-  })
-},
+    })
+  },
+  methods: {
+    viewEventList1() {
+      this.$router.push('/ranking')
+    },
+    viewEventList2() {
+      this.$router.push('/ranking')
+    },
+    viewEventList3() {
+      this.$router.push('/ranking')
+    },
+    viewEventList4() {
+      this.$router.push('/ranking')
+    },
+    viewEventList5() {
+      this.$router.push('/ranking')
+    },
+    viewEventList6() {
+      this.$router.push('/ranking')
+    },
+    viewEventList7() {
+      this.$router.push('/ranking')
+    },
+    viewEventList8() {
+      this.$router.push('/ranking')
+    },
+  },
 }
 </script>
