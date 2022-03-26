@@ -8,8 +8,8 @@ export const getters = {
   all: state => {
     return state.items
   },
-  byId: (state) => (userId) => {
-    const res = state.items.filter(user => user.id === userId)
+  byId: (state) => (eventId) => {
+    const res = state.items.filter(event => event.id === eventId)
     return res.length > 0 ? res[0] : null
   },
 }
@@ -17,6 +17,6 @@ export const getters = {
 export const actions = {
   bind: firestoreAction(function ({ bindFirestoreRef }) {
     // return the promise returned by `bindFirestoreRef`
-    return bindFirestoreRef('items', this.$fire.firestore.collection('users'))
+    return bindFirestoreRef('items', this.$fire.firestore.collection('events'))
   }),
 }

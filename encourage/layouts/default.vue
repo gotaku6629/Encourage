@@ -56,7 +56,7 @@
 </template>
 
 <script>
-
+import { mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -64,9 +64,9 @@ export default {
       user: null,
     }
   },
-
   created() {
-
+    this.bindUsers()
+    this.bindEvents()
     this.$fire.auth.onAuthStateChanged((user) => {
       if (user) {
         this.user = user
@@ -78,8 +78,9 @@ export default {
       }
     })
   },
-
   methods: {
+    ...mapActions({ bindUsers: 'users/bind', bindEvents: 'events/bind'}),
+    // ...mapActions({ bindUsers: 'users/bind'}),
     async logout() {
       await this.$fire.auth.signOut()
       this.user = null
