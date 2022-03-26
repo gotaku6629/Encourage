@@ -64,6 +64,6 @@
 
 <script>
 export default {
-  name: 'EventListPage1',
+  name: 'EventListPage8',
 }
 </script>
