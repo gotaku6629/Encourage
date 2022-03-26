@@ -25,48 +25,48 @@
         <v-card-text>
           <v-container>
             <v-row>
-              <v-col cols="6">
+              <v-col cols="12" md="6" sm="12">
                 <v-card @click="viewEventList1">
                   <v-card-title class="justify-center"> 就活講座 </v-card-title>
                 </v-card>
               </v-col>
-              <v-col cols="6">
+              <v-col cols="12" md="6" sm="12">
                 <v-card @click="viewEventList2">
                   <v-card-title class="justify-center"> キャリア設計 </v-card-title>
                 </v-card>
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols="6">
+              <v-col cols="12" md="6" sm="12">
                 <v-card @click="viewEventList3">
                   <v-card-title class="justify-center">合同説明会</v-card-title>
                 </v-card>
               </v-col>
-              <v-col cols="6">
+              <v-col cols="12" md="6" sm="12">
                 <v-card @click="viewEventList4">
                   <v-card-title class="justify-center">個社説明会</v-card-title>
                 </v-card>
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols="6">
+              <v-col cols="12" md="6" sm="12">
                 <v-card @click="viewEventList5">
                   <v-card-title class="justify-center">自己分析</v-card-title>
                 </v-card>
               </v-col>
-              <v-col cols="6">
+              <v-col cols="12" md="6" sm="12">
                 <v-card @click="viewEventList6">
                   <v-card-title class="justify-center">ES</v-card-title>
                 </v-card>
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols="6">
+              <v-col cols="12" md="6" sm="12">
                 <v-card @click="viewEventList7">
                   <v-card-title class="justify-center">GD</v-card-title>
                 </v-card>
               </v-col>
-              <v-col cols="6">
+              <v-col cols="12" md="6" sm="12">
                 <v-card @click="viewEventList8">
                   <v-card-title class="justify-center">面接</v-card-title>
                 </v-card>
