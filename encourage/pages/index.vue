@@ -99,28 +99,28 @@ export default {
   },
   methods: {
     viewEventList1() {
-      this.$router.push('/ranking')
+      this.$router.push('/eventList1')
     },
     viewEventList2() {
-      this.$router.push('/ranking')
+      this.$router.push('/eventList2')
     },
     viewEventList3() {
-      this.$router.push('/ranking')
+      this.$router.push('/eventList3')
     },
     viewEventList4() {
-      this.$router.push('/ranking')
+      this.$router.push('/eventList4')
     },
     viewEventList5() {
-      this.$router.push('/ranking')
+      this.$router.push('/eventList5')
     },
     viewEventList6() {
-      this.$router.push('/ranking')
+      this.$router.push('/eventList6')
     },
     viewEventList7() {
-      this.$router.push('/ranking')
+      this.$router.push('/eventList7')
     },
     viewEventList8() {
-      this.$router.push('/ranking')
+      this.$router.push('/eventList8')
     },
   },
 }
