@@ -12,6 +12,12 @@ export const getters = {
     const res = state.items.filter(event => event.id === eventId)
     return res.length > 0 ? res[0] : null
   },
+  byCategory: (state) => (category = "") => {
+    if (!category) {
+      return state.items
+    }
+    return state.items.filter(event => event.category === category)
+  }  
 }
 
 export const actions = {
