@@ -16,7 +16,6 @@ export const getters = {
 
 export const actions = {
   bind: firestoreAction(function ({ bindFirestoreRef }) {
-    // return the promise returned by `bindFirestoreRef`
     return bindFirestoreRef('items', this.$fire.firestore.collection('users'))
   }),
 }
