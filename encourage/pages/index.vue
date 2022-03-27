@@ -104,28 +104,28 @@ export default {
   },
   methods: {
     viewEventList1() {
-      this.$router.push('/eventList1')
+      this.$router.push('/Class')
     },
     viewEventList2() {
-      this.$router.push('/eventList2')
+      this.$router.push('/Career')
     },
     viewEventList3() {
-      this.$router.push('/eventList3')
+      this.$router.push('/JointSession')
     },
     viewEventList4() {
-      this.$router.push('/eventList4')
+      this.$router.push('/IndividSession')
     },
     viewEventList5() {
-      this.$router.push('/eventList5')
+      this.$router.push('/SelfAnalysis')
     },
     viewEventList6() {
-      this.$router.push('/eventList6')
+      this.$router.push('/EntrySheet')
     },
     viewEventList7() {
-      this.$router.push('/eventList7')
+      this.$router.push('/GroupDiscussion')
     },
     viewEventList8() {
-      this.$router.push('/eventList8')
+      this.$router.push('/Interview')
     },
   },
   computed: {
