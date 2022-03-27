@@ -4,7 +4,6 @@
     <h2>{{ users }}</h2>
     <h2> events </h2>
     <h2>{{ events }}</h2>
-    <h2>{{ events[0] }}</h2>
     
     <v-row justify="center" align="center">
       <v-col cols="12" sm="8" md="6">
