@@ -1,19 +1,24 @@
 <template>
   <v-app>
-    <h2> users </h2>
-    <h2>{{ users }}</h2>
-    <h2> events </h2>
-    <h2>{{ events }}</h2>
-    
-    <v-row justify="center" align="center">
+    <v-row justify="center" align="center" v-if="isLogined">
       <v-col cols="12" sm="8" md="6">
         <v-card>
           <v-card-text>
             <v-card color="#000000">
-              <v-card-title class="justify-center">Level</v-card-title>
+              <v-card-title class="justify-center">
+                <h2>Level</h2>
+              </v-card-title>
               <center>
-                <v-card-text>8 </v-card-text>
-                <v-card-text> 1st / 100000 </v-card-text>
+                <v-card-text>
+                  <!--
+                  <h1> {{ username }} </h1>
+                  <h1> {{ isLogined }} </h1>
+                  -->
+                  <h1>4</h1>
+                </v-card-text>
+                <v-card-text> 
+                  <h1>6 位 / 31</h1>  
+                </v-card-text>
               </center>
             </v-card>
           </v-card-text>
@@ -31,26 +36,38 @@
           <v-container>
             <v-row>
               <v-col cols="12" md="6" sm="12">
-                <v-card @click="viewEventList1">
+                <v-card @click="viewEventList1" color="pink lighten-2" v-if="isLogined">
                   <v-card-title class="justify-center"> 就活講座 </v-card-title>
                 </v-card>
+                <v-card @click="viewEventList1" v-else>
+                  <v-card-title class="justify-center"> 就活講座 </v-card-title>
+                </v-card>            
               </v-col>
               <v-col cols="12" md="6" sm="12">
-                <v-card @click="viewEventList2">
+                <v-card @click="viewEventList2" color="pink lighten-2" v-if="isLogined">
+                  <v-card-title class="justify-center"> キャリア設計 </v-card-title>
+                </v-card>
+                <v-card @click="viewEventList2" v-else>
                   <v-card-title class="justify-center"> キャリア設計 </v-card-title>
                 </v-card>
               </v-col>
             </v-row>
             <v-row>
               <v-col cols="12" md="6" sm="12">
-                <v-card @click="viewEventList3">
+                <v-card @click="viewEventList3" color="pink lighten-2" v-if="isLogined">
                   <v-card-title class="justify-center">合同説明会</v-card-title>
                 </v-card>
+                <v-card @click="viewEventList3" v-else>
+                  <v-card-title class="justify-center"> 合同説明会 </v-card-title>
+                </v-card>            
               </v-col>
               <v-col cols="12" md="6" sm="12">
-                <v-card @click="viewEventList4">
+                <v-card @click="viewEventList4" color="pink lighten-2" v-if="isLogined">
                   <v-card-title class="justify-center">個社説明会</v-card-title>
                 </v-card>
+                <v-card @click="viewEventList4" v-else>
+                  <v-card-title class="justify-center"> 個社説明会 </v-card-title>
+                </v-card>                
               </v-col>
             </v-row>
             <v-row>
@@ -89,11 +106,15 @@ export default {
   name: 'IndexPage',
   data: () => ({
     justify: ['start', 'center', 'end', 'space-around', 'space-between'],
+    username: "",
+    isLogined: false,
   }),
   created() {
     this.$fire.auth.onAuthStateChanged((user) => {
       if (user) {
         this.user = user
+        this.username = user
+        this.isLogined = !!user
         if (this.user.photoURL === 'sample') {
           this.user.photoURL = null
         }

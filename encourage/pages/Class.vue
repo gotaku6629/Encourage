@@ -8,30 +8,25 @@
         <v-card-text>
           <v-container>
             <v-row class="justify" align="center">
-              <v-col class="justify" cols="12" md="6" sm="12">
-                <v-row v-for="event in events" :key="event.id" justify="center">
-                  <v-col cols="12" sm="10">
-                    <v-card color="black" outlined tile class="py-5">
-                      <v-card-title>
-                        {{ event.comments }}
-                      </v-card-title>
-                      <v-subheader>
-                        {{ event.url }}
-                      </v-subheader>
-                      <v-card-text>
-                        {{ event }}
-                      </v-card-text>
-                      <button @click="externalLink(event.url)">
-                        <v-btn
-                          color="primary"
-                          style="text-transform: none"
-                        >                    
-                          Click
-                        </v-btn>
-                      </button>            
-                    </v-card>
-                  </v-col>
-                </v-row>
+              <v-col v-for="event in events" :key="event.id" justify="center" cols="12" md="6" sm="12">
+                <v-col cols="12" sm="10">
+                  <v-card color="black" outlined tile class="py-5">
+                    <v-card-title>
+                      {{ event.title }}
+                    </v-card-title>
+                    <v-card-text>
+                      {{ event.comment }}
+                    </v-card-text>
+                    <button @click="externalLink(event.url)">
+                      <v-btn
+                        color="orange"
+                        style="text-transform: none"
+                      >                    
+                        Click
+                      </v-btn>
+                    </button>            
+                  </v-card>
+                </v-col>
               </v-col>
             </v-row>
           </v-container>
