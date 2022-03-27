@@ -1,5 +1,12 @@
 <template>
   <v-app>
+    <h2> users </h2>
+    <h2>{{ users }}</h2>
+    <h2> events </h2>
+    <h2>{{ events }}</h2>
+    <h2>{{ events[0] }}</h2>
+    <h2>{{ events[0]['event_id'] }}</h2>
+    
     <v-row justify="center" align="center">
       <v-col cols="12" sm="8" md="6">
         <v-card>
@@ -123,5 +130,19 @@ export default {
       this.$router.push('/eventList8')
     },
   },
+  computed: {
+    // users() {
+    //  const question = this.$store.getters['users/byId'](this.$route.params.id)
+    //  return question
+    // },
+    users() {
+        const users = this.$store.getters['users/all']
+        return users
+    },
+    events() {
+        const events = this.$store.getters['events/all']
+        return events
+    },    
+  }
 }
 </script>
