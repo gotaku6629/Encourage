@@ -12,6 +12,8 @@
                 <v-card-text>
                   <!--
                   <h1> {{ username }} </h1>
+                  <h1> {{ username.uid }} </h1>
+                  <h1> {{ username.displayName }} </h1>
                   <h1> {{ isLogined }} </h1>
                   -->
                   <h1>4</h1>
@@ -29,6 +31,11 @@
         </v-card>
       </v-col>
     </v-row>
+    <!--    
+    <div class="d-flex justify-space-between">
+      <v-btn color="primary" @click="create">Create Users</v-btn>
+    </div>
+    -->
     <v-content>
       <v-card class="mt-5 mt-8" color="black">
         <v-card-title> 就活イベント</v-card-title>
@@ -63,10 +70,10 @@
               </v-col>
               <v-col cols="12" md="6" sm="12">
                 <v-card @click="viewEventList4" color="pink lighten-2" v-if="isLogined">
-                  <v-card-title class="justify-center">個社説明会</v-card-title>
+                  <v-card-title class="justify-center">個社説明会・インターン </v-card-title>
                 </v-card>
                 <v-card @click="viewEventList4" v-else>
-                  <v-card-title class="justify-center"> 個社説明会 </v-card-title>
+                  <v-card-title class="justify-center"> 個社説明会・インターン </v-card-title>
                 </v-card>                
               </v-col>
             </v-row>
@@ -102,7 +109,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'IndexPage',
   data: () => ({
@@ -116,6 +122,7 @@ export default {
         this.user = user
         this.username = user
         this.isLogined = !!user
+        console.log(user)
         if (this.user.photoURL === 'sample') {
           this.user.photoURL = null
         }
@@ -126,30 +133,30 @@ export default {
   },
   methods: {
     viewEventList1() {
-      this.$router.push('/Class')
+      this.$router.push('/event/Class')
     },
     viewEventList2() {
-      this.$router.push('/Career')
+      this.$router.push('/event/Career')
     },
     viewEventList3() {
-      this.$router.push('/JointSession')
+      this.$router.push('/event/JointSession')
     },
     viewEventList4() {
-      this.$router.push('/IndividSession')
+      this.$router.push('/event/IndividSession')
     },
     viewEventList5() {
-      this.$router.push('/SelfAnalysis')
+      this.$router.push('/event/SelfAnalysis')
     },
     viewEventList6() {
-      this.$router.push('/EntrySheet')
+      this.$router.push('/event/EntrySheet')
     },
     viewEventList7() {
-      this.$router.push('/GroupDiscussion')
+      this.$router.push('/event/GroupDiscussion')
     },
     viewEventList8() {
-      this.$router.push('/Interview')
+      this.$router.push('/event/Interview')
     },
-  },
+
   computed: {
     // users() {
     //  const question = this.$store.getters['users/byId'](this.$route.params.id)
@@ -162,7 +169,7 @@ export default {
     events() {
         const events = this.$store.getters['events/all']
         return events
-    },    
+    },
   }
 }
 </script>

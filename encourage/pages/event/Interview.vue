@@ -3,7 +3,7 @@
     <v-content>
       <v-card class="mt-5 mt-8" color="black">
 
-        <v-card-title> 就活講座イベント</v-card-title>
+        <v-card-title> 面接対策イベント</v-card-title>
 
         <v-card-text>
           <v-container>
@@ -42,7 +42,7 @@ export default {
 
   computed: {
     events() {
-      return this.$store.getters['events/all']
+      return this.$store.getters['events/byCategory']("面接")
     },
   },
 

@@ -18,6 +18,7 @@ export const actions = {
   bind: firestoreAction(function ({ bindFirestoreRef }) {
     return bindFirestoreRef('items', this.$fire.firestore.collection('users'))
   }),
+
   // add: firestoreAction(function (_, { userId }) {
   //   return this.$fire.firestore.collection('users').doc('fdaaaaaaaaa').set({ userId, hoge: userId })
   // }),
@@ -31,3 +32,4 @@ export const actions = {
     }
   }),
 }
+
