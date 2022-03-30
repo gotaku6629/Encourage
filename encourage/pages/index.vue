@@ -63,10 +63,10 @@
               </v-col>
               <v-col cols="12" md="6" sm="12">
                 <v-card @click="viewEventList4" color="pink lighten-2" v-if="isLogined">
-                  <v-card-title class="justify-center">個社説明会</v-card-title>
+                  <v-card-title class="justify-center">個社説明会・インターン </v-card-title>
                 </v-card>
                 <v-card @click="viewEventList4" v-else>
-                  <v-card-title class="justify-center"> 個社説明会 </v-card-title>
+                  <v-card-title class="justify-center"> 個社説明会・インターン </v-card-title>
                 </v-card>                
               </v-col>
             </v-row>
@@ -125,28 +125,28 @@ export default {
   },
   methods: {
     viewEventList1() {
-      this.$router.push('/Class')
+      this.$router.push('/event/Class')
     },
     viewEventList2() {
-      this.$router.push('/Career')
+      this.$router.push('/event/Career')
     },
     viewEventList3() {
-      this.$router.push('/JointSession')
+      this.$router.push('/event/JointSession')
     },
     viewEventList4() {
-      this.$router.push('/IndividSession')
+      this.$router.push('/event/IndividSession')
     },
     viewEventList5() {
-      this.$router.push('/SelfAnalysis')
+      this.$router.push('/event/SelfAnalysis')
     },
     viewEventList6() {
-      this.$router.push('/EntrySheet')
+      this.$router.push('/event/EntrySheet')
     },
     viewEventList7() {
-      this.$router.push('/GroupDiscussion')
+      this.$router.push('/event/GroupDiscussion')
     },
     viewEventList8() {
-      this.$router.push('/Interview')
+      this.$router.push('/event/Interview')
     },
   },
   computed: {
