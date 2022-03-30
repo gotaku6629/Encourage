@@ -18,4 +18,7 @@ export const actions = {
   bind: firestoreAction(function ({ bindFirestoreRef }) {
     return bindFirestoreRef('items', this.$fire.firestore.collection('users'))
   }),
+  add: firestoreAction(function (_, { users }) {
+    return this.$fire.firestore.collection('users').add({ users })
+  }),  
 }

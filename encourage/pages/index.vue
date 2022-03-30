@@ -12,6 +12,8 @@
                 <v-card-text>
                   <!--
                   <h1> {{ username }} </h1>
+                  <h1> {{ username.uid }} </h1>
+                  <h1> {{ username.displayName }} </h1>
                   <h1> {{ isLogined }} </h1>
                   -->
                   <h1>4</h1>
@@ -29,6 +31,11 @@
         </v-card>
       </v-col>
     </v-row>
+    <!--    
+    <div class="d-flex justify-space-between">
+      <v-btn color="primary" @click="create">Create Users</v-btn>
+    </div>
+    -->
     <v-content>
       <v-card class="mt-5 mt-8" color="black">
         <v-card-title> 就活イベント</v-card-title>
@@ -102,6 +109,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'IndexPage',
   data: () => ({
@@ -115,6 +123,7 @@ export default {
         this.user = user
         this.username = user
         this.isLogined = !!user
+        console.log(user)
         if (this.user.photoURL === 'sample') {
           this.user.photoURL = null
         }
@@ -124,6 +133,8 @@ export default {
     })
   },
   methods: {
+    ...mapActions({ createUsers: 'users/add' }),
+
     viewEventList1() {
       this.$router.push('/event/Class')
     },
@@ -148,7 +159,16 @@ export default {
     viewEventList8() {
       this.$router.push('/event/Interview')
     },
-  },
+
+    async create() {  
+      const inputData = {
+        users: "testyamamoto"
+      }
+      const res = await this.createUsers(inputData)
+      console.log(res)
+      },
+    },
+
   computed: {
     // users() {
     //  const question = this.$store.getters['users/byId'](this.$route.params.id)
@@ -161,7 +181,7 @@ export default {
     events() {
         const events = this.$store.getters['events/all']
         return events
-    },    
+    },
   }
 }
 </script>
