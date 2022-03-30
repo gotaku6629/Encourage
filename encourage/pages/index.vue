@@ -18,8 +18,8 @@
                   -->
                   <h1>4</h1>
                 </v-card-text>
-                <v-card-text> 
-                  <h1>6 位 / 31</h1>  
+                <v-card-text>
+                  <h1>6 位 / 31</h1>
                 </v-card-text>
               </center>
             </v-card>
@@ -43,38 +43,64 @@
           <v-container>
             <v-row>
               <v-col cols="12" md="6" sm="12">
-                <v-card @click="viewEventList1" color="pink lighten-2" v-if="isLogined">
+                <v-card
+                  @click="viewEventList1"
+                  color="pink lighten-2"
+                  v-if="isLogined"
+                >
                   <v-card-title class="justify-center"> 就活講座 </v-card-title>
                 </v-card>
                 <v-card @click="viewEventList1" v-else>
                   <v-card-title class="justify-center"> 就活講座 </v-card-title>
-                </v-card>            
+                </v-card>
               </v-col>
               <v-col cols="12" md="6" sm="12">
-                <v-card @click="viewEventList2" color="pink lighten-2" v-if="isLogined">
-                  <v-card-title class="justify-center"> キャリア設計 </v-card-title>
+                <v-card
+                  @click="viewEventList2"
+                  color="pink lighten-2"
+                  v-if="isLogined"
+                >
+                  <v-card-title class="justify-center">
+                    キャリア設計
+                  </v-card-title>
                 </v-card>
                 <v-card @click="viewEventList2" v-else>
-                  <v-card-title class="justify-center"> キャリア設計 </v-card-title>
+                  <v-card-title class="justify-center">
+                    キャリア設計
+                  </v-card-title>
                 </v-card>
               </v-col>
             </v-row>
             <v-row>
               <v-col cols="12" md="6" sm="12">
-                <v-card @click="viewEventList3" color="pink lighten-2" v-if="isLogined">
+                <v-card
+                  @click="viewEventList3"
+                  color="pink lighten-2"
+                  v-if="isLogined"
+                >
                   <v-card-title class="justify-center">合同説明会</v-card-title>
                 </v-card>
                 <v-card @click="viewEventList3" v-else>
-                  <v-card-title class="justify-center"> 合同説明会 </v-card-title>
-                </v-card>            
+                  <v-card-title class="justify-center">
+                    合同説明会
+                  </v-card-title>
+                </v-card>
               </v-col>
               <v-col cols="12" md="6" sm="12">
-                <v-card @click="viewEventList4" color="pink lighten-2" v-if="isLogined">
-                  <v-card-title class="justify-center">個社説明会・インターン </v-card-title>
+                <v-card
+                  @click="viewEventList4"
+                  color="pink lighten-2"
+                  v-if="isLogined"
+                >
+                  <v-card-title class="justify-center"
+                    >個社説明会・インターン
+                  </v-card-title>
                 </v-card>
                 <v-card @click="viewEventList4" v-else>
-                  <v-card-title class="justify-center"> 個社説明会・インターン </v-card-title>
-                </v-card>                
+                  <v-card-title class="justify-center">
+                    個社説明会・インターン
+                  </v-card-title>
+                </v-card>
               </v-col>
             </v-row>
             <v-row>
@@ -156,6 +182,7 @@ export default {
     viewEventList8() {
       this.$router.push('/event/Interview')
     },
+  },
 
   computed: {
     // users() {
