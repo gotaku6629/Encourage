@@ -109,7 +109,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 export default {
   name: 'IndexPage',
   data: () => ({
@@ -133,8 +132,6 @@ export default {
     })
   },
   methods: {
-    ...mapActions({ createUsers: 'users/add' }),
-
     viewEventList1() {
       this.$router.push('/event/Class')
     },
@@ -158,15 +155,6 @@ export default {
     },
     viewEventList8() {
       this.$router.push('/event/Interview')
-    },
-
-    async create() {  
-      const inputData = {
-        users: "testyamamoto"
-      }
-      const res = await this.createUsers(inputData)
-      console.log(res)
-      },
     },
 
   computed: {
