@@ -687,7 +687,4 @@ export default {
   mounted() {
     this.renderChart(this.data, this.options)
   },
-  computed() {
-    
-  },
 }
