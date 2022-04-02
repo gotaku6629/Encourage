@@ -156,6 +156,7 @@ export default {
     viewEventList8() {
       this.$router.push('/event/Interview')
     },
+  },
 
   computed: {
     // users() {
