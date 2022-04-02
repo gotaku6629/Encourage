@@ -148,7 +148,7 @@ export default {
         this.user = user
         this.username = user
         this.isLogined = !!user
-        console.log(user)
+        // console.log(user)
         if (this.user.photoURL === 'sample') {
           this.user.photoURL = null
         }

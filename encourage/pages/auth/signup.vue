@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import firebase from 'firebase/compat'
 export default {
   data() {
@@ -55,6 +56,7 @@ export default {
     }
   },
   methods : {
+    ...mapActions({ createUser: 'users/add' }),
     signup() {
       firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
         .then((userCredential) => {
@@ -64,6 +66,8 @@ export default {
             displayName: this.user_name,
             photoURL: 'sample'
           }).then(() => {
+            const res = this.createUser(this.user.uid)
+            console.log(res)
             this.$router.push("/")
           }).catch((error) => {
             this.idError = 'error'
