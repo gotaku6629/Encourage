@@ -14,8 +14,11 @@
                     <v-card-title>
                       {{ event.title }}
                     </v-card-title>
+                    <v-card-sub-title>
+                      {{ event.start }} ~ {{ event.end }}
+                    </v-card-sub-title>
                     <v-card-text>
-                      {{ event.comment }}
+                      {{ event.zcom }}
                     </v-card-text>
                     <button @click="externalLink(event.url)">
                       <v-btn
