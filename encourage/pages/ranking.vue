@@ -34,9 +34,9 @@ export default {
   },
   data() {
     return {
-      loginUserId: "7aL08DcCLjrLswBbFNobbR4H1LDS",
+      loginUserId: this.$fire.auth.currentUser.uid, // ログインid
     }
-  },
+  },  
   computed: {},
   mounted() {},
   methods: {},
