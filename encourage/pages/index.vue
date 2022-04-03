@@ -9,130 +9,62 @@
           <v-card-actions>
             <v-spacer />
             <v-btn color="primary" nuxt to="/ranking"> Go to Ranking </v-btn>
-            <create-sample-users-button />
           </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
-    <!--    
-    <div class="d-flex justify-space-between">
-      <v-btn color="primary" @click="create">Create Users</v-btn>
-    </div>
-    -->
-    <v-content>
+    <v-main>
       <v-card class="mt-5 mt-8" color="black">
         <v-card-title> 就活イベント</v-card-title>
         <v-card-text>
           <v-container>
-            <v-row>
-              <v-col cols="12" md="6" sm="12">
-                <v-card
-                  @click="viewEventList1"
-                  color="pink lighten-2"
-                  v-if="isLogined"
-                >
-                  <v-card-title class="justify-center"> 就活講座 </v-card-title>
-                </v-card>
-                <v-card @click="viewEventList1" v-else>
-                  <v-card-title class="justify-center"> 就活講座 </v-card-title>
-                </v-card>
-              </v-col>
-              <v-col cols="12" md="6" sm="12">
-                <v-card
-                  @click="viewEventList2"
-                  color="pink lighten-2"
-                  v-if="isLogined"
-                >
-                  <v-card-title class="justify-center">
-                    キャリア設計
-                  </v-card-title>
-                </v-card>
-                <v-card @click="viewEventList2" v-else>
-                  <v-card-title class="justify-center">
-                    キャリア設計
-                  </v-card-title>
-                </v-card>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="12" md="6" sm="12">
-                <v-card
-                  @click="viewEventList3"
-                  color="pink lighten-2"
-                  v-if="isLogined"
-                >
-                  <v-card-title class="justify-center">合同説明会</v-card-title>
-                </v-card>
-                <v-card @click="viewEventList3" v-else>
-                  <v-card-title class="justify-center">
-                    合同説明会
-                  </v-card-title>
-                </v-card>
-              </v-col>
-              <v-col cols="12" md="6" sm="12">
-                <v-card
-                  @click="viewEventList4"
-                  color="pink lighten-2"
-                  v-if="isLogined"
-                >
-                  <v-card-title class="justify-center"
-                    >個社説明会・インターン
-                  </v-card-title>
-                </v-card>
-                <v-card @click="viewEventList4" v-else>
-                  <v-card-title class="justify-center">
-                    個社説明会・インターン
-                  </v-card-title>
-                </v-card>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="12" md="6" sm="12">
-                <v-card @click="viewEventList5">
-                  <v-card-title class="justify-center">自己分析</v-card-title>
-                </v-card>
-              </v-col>
-              <v-col cols="12" md="6" sm="12">
-                <v-card @click="viewEventList6">
-                  <v-card-title class="justify-center">ES</v-card-title>
-                </v-card>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="12" md="6" sm="12">
-                <v-card @click="viewEventList7">
-                  <v-card-title class="justify-center">GD</v-card-title>
-                </v-card>
-              </v-col>
-              <v-col cols="12" md="6" sm="12">
-                <v-card @click="viewEventList8">
-                  <v-card-title class="justify-center">面接</v-card-title>
-                </v-card>
-              </v-col>
+            <v-row v-for="i in 4" :key="i">
+              <category-button
+                :is-logined="isLogined"
+                :login-user-id="loginUserId"
+                :category="eventKindList[2 * (i - 1)]"
+              />
+              <category-button
+                :is-logined="isLogined"
+                :login-user-id="loginUserId"
+                :category="eventKindList[2 * (i - 1) + 1]"
+              />
             </v-row>
           </v-container>
         </v-card-text>
       </v-card>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
 <script>
 import RankingCard from '../components/RankingCard.vue'
-import CreateSampleUsersButton from '../components/CreatSampleUsersButton.vue'
+import CategoryButton from '../components/CategoryButton.vue'
+
+const eventKindList = [
+  '就活講座',
+  'キャリア設計',
+  '合同説明会',
+  '個社説明会・インターン',
+  '自己分析',
+  'ES',
+  'GD',
+  '面接',
+]
 
 export default {
   name: 'IndexPage',
   components: {
     RankingCard,
-    CreateSampleUsersButton,
+    CategoryButton,
   },
   data: () => ({
     justify: ['start', 'center', 'end', 'space-around', 'space-between'],
     user: {},
     username: '',
     isLogined: false,
-    loginUserId: '',// this.$fire.auth.currentUser.uid, // ログインid
+    eventKindList,
+    loginUserId: '', // this.$fire.auth.currentUser.uid, // ログインid
   }),
   created() {
     this.$fire.auth.onAuthStateChanged((user) => {
@@ -151,45 +83,25 @@ export default {
     })
   },
   methods: {
-    viewEventList1() {
-      this.$router.push('/event/Class')
-    },
-    viewEventList2() {
-      this.$router.push('/event/Career')
-    },
-    viewEventList3() {
-      this.$router.push('/event/JointSession')
-    },
-    viewEventList4() {
-      this.$router.push('/event/IndividSession')
-    },
-    viewEventList5() {
-      this.$router.push('/event/SelfAnalysis')
-    },
-    viewEventList6() {
-      this.$router.push('/event/EntrySheet')
-    },
-    viewEventList7() {
-      this.$router.push('/event/GroupDiscussion')
-    },
-    viewEventList8() {
-      this.$router.push('/event/Interview')
+    viewEventList(idx) {
+      const eventList = [
+        'Class',
+        'Career',
+        'JointSession',
+        'IndividSession',
+        'SelfAnalysis',
+        'EntrySheet',
+        'GroupDiscussion',
+        'Interview',
+      ]
+      const link = '/event/' + eventList[idx]
+      console.log(link)
+      return function () {
+        this.$router.push(link)
+      }
     },
   },
-
   computed: {
-    // users() {
-    //  const question = this.$store.getters['users/byId'](this.$route.params.id)
-    //  return question
-    // },
-    users() {
-      const users = this.$store.getters['users/all']
-      return users
-    },
-    events() {
-      const events = this.$store.getters['events/all']
-      return events
-    },
   },
 }
 </script>

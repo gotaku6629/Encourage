@@ -67,6 +67,14 @@ export const getters = {
       rank += histgram[i]
     }
     return rank
+  },
+  joinedEventListLength: (state) => (userId, category) => {
+    const user = state.items.filter((u) => u.id === userId)
+    if (user.length !== 1) {
+      console.log('users no found')
+      return null
+    }
+    return user[0][category].length
   }
 }
 
@@ -75,9 +83,6 @@ export const actions = {
     return bindFirestoreRef('items', this.$fire.firestore.collection('users'))
   }),
   add: firestoreAction(function (_, user) {
-    // console.log(user)
-    // console.log(user.uid)
-    // console.log(user.displayName)
     return this.$fire.firestore
       .collection('users')
       .doc(user.uid)
