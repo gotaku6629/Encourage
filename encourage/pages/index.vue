@@ -113,6 +113,7 @@
           </v-container>
         </v-card-text>
       </v-card>
+      {{joinedEventList[eventKindList[0]].length}}
     </v-content>
   </v-app>
 </template>
@@ -120,6 +121,17 @@
 <script>
 import RankingCard from '../components/RankingCard.vue'
 import CreateSampleUsersButton from '../components/CreatSampleUsersButton.vue'
+
+const eventKindList = [
+  '就活講座',
+  'キャリア設計',
+  '合同説明会',
+  '個社説明会・インターン',
+  '自己分析',
+  'ES',
+  'GD',
+  '面接',
+]
 
 export default {
   name: 'IndexPage',
@@ -132,7 +144,8 @@ export default {
     user: {},
     username: '',
     isLogined: false,
-    loginUserId: "testtest",
+    loginUserId: 'testtest',
+    eventKindList,
   }),
   created() {
     this.$fire.auth.onAuthStateChanged((user) => {
@@ -188,6 +201,9 @@ export default {
     events() {
       const events = this.$store.getters['events/all']
       return events
+    },
+    joinedEventList() {
+      return this.$store.getters['users/joinedEventList'](this.loginUserId)
     },
   },
 }

@@ -4,7 +4,7 @@ const eventKindList = [
   '就活講座',
   'キャリア設計',
   '合同説明会',
-  '個社説明会',
+  '個社説明会・インターン',
   '自己分析',
   'ES',
   'GD',
@@ -67,6 +67,18 @@ export const getters = {
       rank += histgram[i]
     }
     return rank
+  },
+  joinedEventList: (state) => (userId) => {
+    const user = state.items.filter((u) => u.id === userId)
+    if (user.length !== 1) {
+      console.log('users no found')
+      return null
+    }
+    const res = {}
+    for (const key of eventKindList) {
+      res[key] = user[0][key]
+    }
+    return res
   }
 }
 
