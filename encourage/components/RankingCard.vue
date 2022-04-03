@@ -7,9 +7,11 @@
       <v-card-text>
         <h1>{{ level }}</h1>
       </v-card-text>
+      
       <v-card-text>
         <h1>{{ rank }} 位 / {{ numberOfAll }}</h1>
       </v-card-text>
+     
     </center>
   </v-card>
 </template>

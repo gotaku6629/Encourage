@@ -34,7 +34,7 @@ export default {
   },
   data() {
     return {
-      loginUserId: "testtest",
+      loginUserId: "7aL08DcCLjrLswBbFNobbR4H1LDS",
     }
   },
   computed: {},
