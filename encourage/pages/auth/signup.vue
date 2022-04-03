@@ -66,7 +66,7 @@ export default {
             displayName: this.user_name,
             photoURL: 'sample'
           }).then(() => {
-            const res = this.createUser(this.user.uid)
+            const res = this.createUser(this.user)
             console.log(res)
             this.$router.push("/")
           }).catch((error) => {

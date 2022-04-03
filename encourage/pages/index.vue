@@ -132,11 +132,12 @@ export default {
     user: {},
     username: '',
     isLogined: false,
-    loginUserId: "7aL08DcCLjrLswBbFNobbR4H1LDS",
+    loginUserId: '',// this.$fire.auth.currentUser.uid, // ログインid
   }),
   created() {
     this.$fire.auth.onAuthStateChanged((user) => {
       if (user) {
+        this.loginUserId = user.uid
         this.user = user
         this.username = user
         this.isLogined = !!user
