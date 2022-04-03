@@ -68,17 +68,13 @@ export const getters = {
     }
     return rank
   },
-  joinedEventList: (state) => (userId) => {
+  joinedEventListLength: (state) => (userId, category) => {
     const user = state.items.filter((u) => u.id === userId)
     if (user.length !== 1) {
       console.log('users no found')
       return null
     }
-    const res = {}
-    for (const key of eventKindList) {
-      res[key] = user[0][key]
-    }
-    return res
+    return user[0][category].length
   }
 }
 
@@ -86,12 +82,11 @@ export const actions = {
   bind: firestoreAction(function ({ bindFirestoreRef }) {
     return bindFirestoreRef('items', this.$fire.firestore.collection('users'))
   }),
-  add: firestoreAction(function (_, userId) {
-    // console.log(userId)
+  add: firestoreAction(function (_, user) {
     return this.$fire.firestore
       .collection('users')
-      .doc(userId)
-      .set({ '就活講座': [], 'キャリア設計': [], '合同説明会': [], '個社説明会・インターン': [], '自己分析': [], 'ES': [], 'GD': [], '面接': []})
+      .doc(user.uid)
+      .set({ 'Am': user.displayName, '就活講座': [], 'キャリア設計': [], '合同説明会': [], '個社説明会・インターン': [], '自己分析': [], 'ES': [], 'GD': [], '面接': []})
   }),
   sampleSet: firestoreAction(function (_, users) {
     for (const user of users) {
