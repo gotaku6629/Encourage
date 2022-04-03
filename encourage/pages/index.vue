@@ -4,29 +4,12 @@
       <v-col cols="12" sm="8" md="6">
         <v-card>
           <v-card-text>
-            <v-card color="#000000">
-              <v-card-title class="justify-center">
-                <h2>Level</h2>
-              </v-card-title>
-              <center>
-                <v-card-text>
-                  <!--
-                  <h1> {{ username }} </h1>
-                  <h1> {{ username.uid }} </h1>
-                  <h1> {{ username.displayName }} </h1>
-                  <h1> {{ isLogined }} </h1>
-                  -->
-                  <h1>4</h1>
-                </v-card-text>
-                <v-card-text>
-                  <h1>6 位 / 31</h1>
-                </v-card-text>
-              </center>
-            </v-card>
+            <ranking-card :login-user-id="loginUserId" />
           </v-card-text>
           <v-card-actions>
             <v-spacer />
             <v-btn color="primary" nuxt to="/ranking"> Go to Ranking </v-btn>
+            <create-sample-users-button />
           </v-card-actions>
         </v-card>
       </v-col>
@@ -135,12 +118,21 @@
 </template>
 
 <script>
+import RankingCard from '../components/RankingCard.vue'
+import CreateSampleUsersButton from '../components/CreatSampleUsersButton.vue'
+
 export default {
   name: 'IndexPage',
+  components: {
+    RankingCard,
+    CreateSampleUsersButton,
+  },
   data: () => ({
     justify: ['start', 'center', 'end', 'space-around', 'space-between'],
-    username: "",
+    user: {},
+    username: '',
     isLogined: false,
+    loginUserId: "testtest",
   }),
   created() {
     this.$fire.auth.onAuthStateChanged((user) => {
@@ -190,13 +182,13 @@ export default {
     //  return question
     // },
     users() {
-        const users = this.$store.getters['users/all']
-        return users
+      const users = this.$store.getters['users/all']
+      return users
     },
     events() {
-        const events = this.$store.getters['events/all']
-        return events
+      const events = this.$store.getters['events/all']
+      return events
     },
-  }
+  },
 }
 </script>

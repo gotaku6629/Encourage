@@ -2,46 +2,44 @@
   <v-row>
     <v-col class="text-center">
       <h1>Ranking</h1>
-      <h2>
+      <!-- <h2>
         {{ rank }} 位<small>/ {{ numUsers }}</small>
       </h2>
-      <h2>level: {{ level }}</h2>
+      <h2>level: {{ level }}</h2> -->
+      <ranking-card :login-user-id="loginUserId"/>
       <v-card>
-        <chart />
+        <ranking-chart :login-user-id="loginUserId" />
         <v-card-actions>
           <v-spacer />
           <v-btn color="primary" nuxt to="/"> Back to Top page </v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
-    <v-btn color="primary" @click="create">create sample users</v-btn>
+    <create-sample-users-button />
   </v-row>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import Chart from '../components/Chart.js'
+// import { mapActions } from 'vuex'
+import RankingCard from '../components/RankingCard.vue'
+import RankingChart from '../components/RankingChart.vue'
+import CreateSampleUsersButton from '../components/CreatSampleUsersButton.vue'
 
 export default {
   name: 'RankingPage',
   components: {
-    Chart,
+    RankingCard,
+    RankingChart,
+    CreateSampleUsersButton,
   },
-  data: () => ({
-    rank: Chart.data().userrank,
-    level: Chart.data().userlevel,
-    numUsers: Chart.data().numberOfUsers,
-    sampleUsers: Chart.data().sampleUsers,
-  }),
-  mounted() {},
-  methods: {
-    ...mapActions({ createSampleUsers: 'users/sampleSet' }),
-    async create() {
-      const res = await this.createSampleUsers(this.sampleUsers)
-      console.log(res)
-    },
+  data() {
+    return {
+      loginUserId: "testtest",
+    }
   },
   computed: {},
+  mounted() {},
+  methods: {},
 }
 </script>
 
