@@ -1,9 +1,12 @@
 <template>
   <v-app>
     <v-content>
+      <v-btn outlined nuxt to="/">
+        <v-icon left> mdi-chevron-left </v-icon>Top Page
+      </v-btn>
+            
       <v-card class="mt-5 mt-8" color="black">
-
-        <v-card-title> 個社説明会イベント・インターンシップ申し込み</v-card-title>
+        <v-card-title> 個社説明会・インターンシップ</v-card-title>
 
         <v-card-text>
           <v-container>

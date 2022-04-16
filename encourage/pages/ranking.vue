@@ -5,12 +5,12 @@
       <ranking-card :login-user-id="loginUserId"/>
       <v-card>
         <ranking-chart :login-user-id="loginUserId" />
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" nuxt to="/"> Back to Top page </v-btn>
-        </v-card-actions>
       </v-card>
     </v-col>
+
+    <v-btn outlined nuxt to="/">
+      <v-icon left> mdi-chevron-left </v-icon>Top Page
+    </v-btn>    
   </v-row>
 </template>
 

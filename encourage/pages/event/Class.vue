@@ -1,8 +1,11 @@
 <template>
   <v-app>
     <v-content>
-      <v-card class="mt-5 mt-8" color="black">
+      <v-btn outlined nuxt to="/">
+        <v-icon left> mdi-chevron-left </v-icon>Top Page
+      </v-btn>
 
+      <v-card class="mt-5 mt-8" color="black">
         <v-card-title> 就活講座イベント</v-card-title>
 
         <v-card-text>
@@ -24,7 +27,7 @@
                       <v-btn
                         color="orange"
                         style="text-transform: none"
-                      >                    
+                      >
                         Click
                       </v-btn>
                     </button>            

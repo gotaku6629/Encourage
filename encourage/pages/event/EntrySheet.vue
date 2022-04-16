@@ -1,9 +1,12 @@
 <template>
   <v-app>
     <v-content>
-      <v-card class="mt-5 mt-8" color="black">
+      <v-btn outlined nuxt to="/">
+        <v-icon left> mdi-chevron-left </v-icon>Top Page
+      </v-btn>
 
-        <v-card-title> ESイベント</v-card-title>
+      <v-card class="mt-5 mt-8" color="black">
+        <v-card-title> ES (エントリーシート)</v-card-title>
 
         <v-card-text>
           <v-container>

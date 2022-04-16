@@ -8,7 +8,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn color="primary" nuxt to="/ranking"> Go to Ranking </v-btn>
+            <v-btn color="primary" nuxt to="/ranking"> Go to Ranking > </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
