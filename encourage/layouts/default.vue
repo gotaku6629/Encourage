@@ -1,5 +1,6 @@
 <template>
-  <v-app dark>
+  <!--<v-app dark>-->
+  <v-app>
     <v-app-bar fixed app>
       <v-spacer />
       <v-toolbar-title style="padding-right: 10px" v-text="title" />

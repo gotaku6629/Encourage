@@ -20,11 +20,11 @@ export default {
     joinedColor(num) {
       let color = ''
       if (num <= 0) color = 'gray'
-      else if (num === 1) color = 'green lighten-4'
-      else if (num === 2) color = 'green lighten-3'
-      else if (num === 3) color = 'green lighten-2'
-      else if (num === 4) color = 'green lighten-1'
-      else color = 'green lighten-0'
+      else if (num === 1) color = 'pink lighten-3'
+      else if (num === 2) color = 'pink lighten-2'
+      else if (num === 3) color = 'pink lighten-1'
+      else if (num === 4) color = 'pink lighten-0'
+      else color = 'pink lighten-0'
       return color
     },
     viewEventList() {

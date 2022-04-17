@@ -1,5 +1,8 @@
 <template>
+  <!--
   <v-card color="#000000">
+  -->
+  <v-card color="white">
     <v-card-title class="justify-center">
       <h2>Level</h2>
     </v-card-title>

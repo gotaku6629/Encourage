@@ -2,19 +2,22 @@
   <v-app>
     <v-row justify="center" align="center" v-if="isLogined">
       <v-col cols="12" sm="8" md="6">
-        <v-card>
+        <v-card color="blue-grey lighten-5">
           <v-card-text>
             <ranking-card :login-user-id="loginUserId" />
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn color="primary" nuxt to="/ranking"> Go to Ranking > </v-btn>
+            <v-btn style="text-transform: none" color="primary" nuxt to="/ranking"> Go to Ranking > </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
     <v-main>
+      <!--
       <v-card class="mt-5 mt-8" color="black">
+      -->
+      <v-card class="mt-5 mt-8" color="red lighten-5">
         <v-card-title> 就活イベント</v-card-title>
         <v-card-text>
           <v-container>

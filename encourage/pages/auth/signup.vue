@@ -1,12 +1,18 @@
 <template>
   <div>
+    <v-btn outlined nuxt to="/auth/login">
+      <v-icon> mdi-chevron-left </v-icon>Sign In
+    </v-btn>
+
     <div v-if="idError">
       アカウントの作成に失敗しました。別のメールアドレスでお試しください。<br>
       <button @click="back">Back to signup</button>
     </div>
+
     <div v-else>
       <div id="app" align=center>
         <section class="user-log-in">
+          <v-card  color="grey lighten-3">
           <div class="user-log-in-body">
             <div class="log-in_phrase">
               ユーザー登録
@@ -36,6 +42,7 @@
                 </div>
             </div>
           </div>
+          </v-card>
         </section>
       </div>
     </div>
@@ -94,7 +101,7 @@ export default {
     font-size: 16px;
     width: 20em;             /* 横幅 */
     height: 25px;           /* 高さ */
-    border: 1px solid rgb(248, 250, 248);  /* 枠線 */
+    border: 1px solid rgb(55, 63, 55);  /* 枠線 */
   }
 .log-in_phrase{
   margin-top: auto;
@@ -108,7 +115,7 @@ export default {
   width: 430px;            /* 横幅 */
   height: 500px;           /* 高さ */
   margin-top: 50px;
-  border: 1px solid rgb(248, 250, 248);  /* 枠線 */
+  border: 1px solid rgb(239, 236, 241);  /* 枠線 */
 }
 .buttons{
   margin-top: 50px;
