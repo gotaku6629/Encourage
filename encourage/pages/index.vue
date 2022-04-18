@@ -2,7 +2,7 @@
   <v-app>
     <v-row justify="center" align="center" v-if="isLogined">
       <v-col cols="12" sm="8" md="6">
-        <v-card color="blue-grey lighten-5">
+        <v-card color="light-blue">
           <v-card-text>
             <ranking-card :login-user-id="loginUserId" />
           </v-card-text>

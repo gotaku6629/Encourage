@@ -108,7 +108,7 @@ export default {
 
 <style scoped="scss">
 .input {
-  color: rgb(240, 236, 235);
+  color: rgb(0, 0, 0);
   margin-top: 1px;
   font-size: 16px;
   width: 20em; /* 横幅 */

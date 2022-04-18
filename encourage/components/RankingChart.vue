@@ -67,7 +67,7 @@ export default {
     setHistColor() {
       const level = this.$store.getters['users/level'](this.userId)
       const colors = Array(9)
-      colors.fill('#ffffff')
+      colors.fill('#000000')
       colors[level] = '#ff0000'
       this.data.datasets[0].backgroundColor = colors
     },
