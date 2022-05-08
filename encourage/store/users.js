@@ -83,10 +83,24 @@ export const actions = {
     return bindFirestoreRef('items', this.$fire.firestore.collection('users'))
   }),
   add: firestoreAction(function (_, user) {
-    return this.$fire.firestore
-      .collection('users')
-      .doc(user.uid)
-      .set({ 'Am': user.displayName, '就活講座': [], 'キャリア設計': [], '合同説明会': [], '個社説明会・インターン': [], '自己分析': [], 'ES': [], 'GD': [], '面接': []})
+    // すでにドキュメントにuser.photoURLがある人は, 初期化したくない！
+    const docUser = this.$fire.firestore.collection('users').doc(user.photoURL)
+    docUser.get().then((doc) => {
+      if (doc.exists){
+        console.log("Document data:", doc.data())
+        return -1
+      } else {
+        console.log("No such document!")
+        return this.$fire.firestore
+        .collection('users')
+        // .doc(user.uid) // ここ修正！
+        .doc(user.photoURL) // とりあえず、photoURLを用いる！
+        .set({ 'Am': user.displayName, '就活講座': [], 'キャリア設計': [], '合同説明会': [], '個社説明会・インターン': [], '自己分析': [], 'ES': [], 'GD': [], '面接': []})
+      }
+    }).catch((error) => {
+      console.log("Error getting document:", error);
+      return -1
+    });
   }),
   sampleSet: firestoreAction(function (_, users) {
     for (const user of users) {

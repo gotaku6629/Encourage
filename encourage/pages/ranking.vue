@@ -30,7 +30,8 @@ export default {
   },
   data() {
     return {
-      loginUserId: this.$fire.auth.currentUser.uid, // ログインid
+      // loginUserId: this.$fire.auth.currentUser.uid,   // ログインid
+      loginUserId: this.$fire.auth.currentUser.photoURL, // 変更！
     }
   },  
   computed: {},

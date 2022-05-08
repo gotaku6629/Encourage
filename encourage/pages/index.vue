@@ -72,7 +72,8 @@ export default {
   created() {
     this.$fire.auth.onAuthStateChanged((user) => {
       if (user) {
-        this.loginUserId = user.uid
+        // this.loginUserId = user.uid   // 変更
+        this.loginUserId = user.photoURL
         this.user = user
         this.username = user
         this.isLogined = !!user
