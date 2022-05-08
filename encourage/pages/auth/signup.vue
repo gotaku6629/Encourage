@@ -24,6 +24,10 @@
                             name="email" style="margin-top: 10px">
                   </div>
                   <div class="field" >
+                    <input v-model="encourage_Id" class="input" type="email" placeholder="エンカレッジId"
+                            name="email" style="margin-top: 20px">
+                  </div>                  
+                  <div class="field" >
                     <input v-model="email" class="input" type="email" placeholder="メールアドレス"
                             name="email" style="margin-top: 20px">
                   </div>
@@ -56,6 +60,7 @@ export default {
   data() {
     return {
       user_name: '',
+      encourage_Id: '',
       email: '',
       password: '',
       user: { },
@@ -71,7 +76,10 @@ export default {
           // ユーザー名、photoURLの登録
           this.user.updateProfile({
             displayName: this.user_name,
-            photoURL: 'sample'
+            // tenantId: this.encourage_Id,
+            // photoURL: 'sample'
+            photoURL: this.encourage_Id  // phtoURLで回してみる！
+            // uid: this.encourage_Id    // uIdは指定できない
           }).then(() => {
             const res = this.createUser(this.user)
             console.log(res)
