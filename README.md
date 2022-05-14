@@ -3,9 +3,9 @@
 イベントパッケージ・アプリケーション
 
 ## tool_version
-node --version==16.14.0 <br>
-npm  --version==8.3.1  <br>
-firebase --version==8.10.0  <br>
+node --v16.14.0 <br>
+npm  --v8.3.1  <br>
+firebase --v8.10.0  <br>
 
 ## application
 <p align="center">
