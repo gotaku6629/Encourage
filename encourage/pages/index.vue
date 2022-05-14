@@ -72,8 +72,7 @@ export default {
   created() {
     this.$fire.auth.onAuthStateChanged((user) => {
       if (user) {
-        // this.loginUserId = user.uid   // 変更
-        this.loginUserId = user.photoURL
+        this.loginUserId = user.photoURL // encourage_idを利用！
         this.user = user
         this.username = user
         this.isLogined = !!user

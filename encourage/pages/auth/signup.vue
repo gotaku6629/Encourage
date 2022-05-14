@@ -78,7 +78,7 @@ export default {
             displayName: this.user_name,
             // tenantId: this.encourage_Id,
             // photoURL: 'sample'
-            photoURL: this.encourage_Id  // phtoURLで回してみる！
+            photoURL: this.encourage_Id  // photoURLで回してみる！
             // uid: this.encourage_Id    // uIdは指定できない
           }).then(() => {
             const res = this.createUser(this.user)
