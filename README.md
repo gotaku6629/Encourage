@@ -1,2 +1,2 @@
-# Encourage イベントパッケージ・アプリケーション
-encourage web application  for all enters
+# Encourage
+名工支部OC イベントパッケージ・アプリケーション
