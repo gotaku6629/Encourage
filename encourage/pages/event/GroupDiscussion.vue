@@ -25,7 +25,7 @@
                     <v-card-text>                      
                       <v-row align="center" class="mx-0">
                         <v-rating
-                          :value="4.5"
+                          :value=event.level
                           color="amber"
                           dense
                           half-increments
@@ -33,13 +33,21 @@
                           size="14"
                         ></v-rating>
                           <div class="grey--text ms-4">
-                            4.5 (413)
+                            {{ event.level }}
+                            ({{ event.number }}人参加中)
                           </div>
                       </v-row>
                       
-                      <div class="my-4 text-subtitle-1">
-                        {{ event.start }} ~ {{ event.end }}
-                      </div>                                                                                 
+                      <div class="my-4 text-subtitle-2">
+                        <div v-if="event.end">
+                          イベント日時：<br>
+                          {{ event.start }} ~ {{ event.end }}
+                        </div>
+                        <div v-if="event.deadline">
+                          申し込み締め切り：<br>
+                          {{ event.deadline }}
+                        </div>
+                      </div>
                     
                       <v-card-text> {{ event.zcom }} </v-card-text>
 
