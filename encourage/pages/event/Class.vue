@@ -34,7 +34,7 @@
                         ></v-rating>
                           <div class="grey--text ms-4">
                             {{ event.level }}
-                            ({{ event.number }}人参加中)
+                            <!--({{ event.number }}人参加中)-->
                           </div>
                       </v-row>
                       
