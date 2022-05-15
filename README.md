@@ -10,3 +10,7 @@ firebase --v8.10.0  <br>
 ## application
 <p align="center">
 <img src='imgs/app_top.png'/>
+
+## architecture
+<p align="center">
+<img src='imgs/app_architecture.png'/>
