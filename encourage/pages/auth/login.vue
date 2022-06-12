@@ -8,53 +8,55 @@
     <div v-if="isAuthenticated">
       <div id="app" align="center">
         <section class="user-log-in">
-          <v-card  color="grey lighten-3">
-          <div class="user-log-in-body">
-            <div class="log-in_phrase">Encourage Sign in</div>
-            <div class="log-in-main">
-              <div class="box">
-                <div class="field">
-                  <input
-                    v-model="email"
-                    class="input"
-                    type="email"
-                    placeholder="メールアドレス"
-                    name="email"
-                  />
-                </div>
-                <div class="field">
-                  <input
-                    v-model="password"
-                    class="input"
-                    type="password"
-                    placeholder="パスワード"
-                    maxlength="20"
-                    name="password"
-                  />
-                </div>
+          <v-card color="grey lighten-3">
+            <div class="user-log-in-body">
+              <div class="log-in_phrase">Encourage Sign in</div>
+              <div class="log-in-main">
+                <div class="box">
+                  <div class="field">
+                    <input
+                      v-model="email"
+                      class="input"
+                      type="email"
+                      placeholder="メールアドレス"
+                      name="email"
+                    />
+                  </div>
+                  <div class="field">
+                    <input
+                      v-model="password"
+                      class="input"
+                      type="password"
+                      placeholder="パスワード"
+                      maxlength="20"
+                      name="password"
+                    />
+                  </div>
 
-                <div class="field">
-                  <input type="checkbox" />
-                  サインインしたままにする
+                  <div class="field">
+                    <input type="checkbox" />
+                    サインインしたままにする
+                  </div>
+                  <button class="button"></button>
                 </div>
-                <button class="button"></button>
+                <p class="has-text-grey">
+                  <a href="/auth/resetPass">パスワードを忘れた方はこちら</a>
+                </p>
               </div>
-              <p class="has-text-grey">
-                <a href="/auth/resetPass">パスワードを忘れた方はこちら</a>
-              </p>
-            </div>
-            <div class="buttons">
-              <v-form ref="form" lazy-validation>
-                <v-btn color="primary" @click="login">Sign in</v-btn>
-              </v-form>
-            </div>
+              <div class="buttons">
+                <v-form ref="form" lazy-validation>
+                  <v-btn color="primary" @click="login">Sign in</v-btn>
+                </v-form>
+              </div>
 
-            <div class="buttons">
-              <v-form ref="form" lazy-validation>
-                <v-btn color="grey lighten-5" @click="signup">新規登録の方 > </v-btn>
-              </v-form>
-            </div>                                           
-          </div>
+              <div class="buttons">
+                <v-form ref="form" lazy-validation>
+                  <v-btn color="grey lighten-5" @click="signup"
+                    >新規登録の方 >
+                  </v-btn>
+                </v-form>
+              </div>
+            </div>
           </v-card>
         </section>
       </div>
@@ -67,9 +69,9 @@
   </div>
 </template>
 
-
 <script>
 import firebase from 'firebase/compat'
+import { mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -80,6 +82,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      bindUser: 'users/bindUser',
+      bindHistgram: 'users/bindHistgram',
+    }),
     login() {
       firebase
         .auth()
@@ -87,7 +93,12 @@ export default {
         .then((userCredential) => {
           // Signed in
           this.user = userCredential.user
-          this.$router.push('/')
+          // bind User Data (firestoreからデータを持ってくる)
+          this.bindUser(this.user.photoURL).then(() => {
+            this.bindHistgram().then(() => {
+              this.$router.push('/')
+            })
+          })
         })
         .catch((error) => {
           console.error(error)
@@ -104,7 +115,6 @@ export default {
   },
 }
 </script>
-
 
 <style scoped="scss">
 .input {

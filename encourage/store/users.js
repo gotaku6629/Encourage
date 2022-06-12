@@ -11,6 +11,11 @@ const eventKindList = [
   '面接',
 ]
 
+const univList = [
+  '名古屋工業大学',
+  '名古屋大学',
+]
+
 function getUserLevel(user) {
   let level = 0
   for (const key of eventKindList) {
@@ -19,73 +24,83 @@ function getUserLevel(user) {
   return level
 }
 
+function histgramToNumber(hists) {
+  const ret = {}
+  for (const univ of univList) {
+    ret[univ] = hists[univ].map((i) => Number(i))
+  }
+  return ret
+}
+
 export const state = () => ({
-  items: [],
+  // items: [],
+  user: [], // loginユーザーの情報
+  hist: [], // 各大学のヒストグラム
 })
 
 export const getters = {
-  all: (state) => {
-    return state.items
-  },
-  byId: (state) => (userId) => {
-    const res = state.items.filter((user) => user.id === userId)
-    return res.length > 0 ? res[0] : null
-  },
+  // all: (state) => {
+  //   return state.items
+  // },
+  // byId: (state) => (userId) => {
+  //   const res = state.items.filter((user) => user.id === userId)
+  //   return res.length > 0 ? res[0] : null
+  // },
   numberOfAll: (state) => {
-    console.log('numberOfAll=', state.items)
-    console.log('length=', state.items.length)
-    return state.items.length
+    let res = 0
+    const hist = histgramToNumber(state.hist)
+    for (const univ of univList) {
+      res += hist[univ].map((i) => Number(i)).reduce((sum, e) => sum + e, 0)
+    }
+    return res
   },
   hist: (state) => {
-    const histgram = Array(9)
-    histgram.fill(0)
-    for (const user of state.items) {
-      const level = getUserLevel(user)
-      histgram[level]++
+    const res = {}
+    for (const univ of univList) {
+      res[univ] = state.hist[univ].map((i) => Number(i))
     }
-    return histgram
+    return res
+  },
+  hists: (state) => {
+    const hist = state.items.filter((user) => user.id === 'histgram')[0]
+    const res = {}
+    for (const univ of univList) {
+      res[univ] = hist[univ].map((i) => Number(i))
+    }
+    return res
   },
   level: (state) => (userId) => {
-    const user = state.items.filter((u) => u.id === userId)
-    return user.length === 1 ? getUserLevel(user[0]) : -1
+    return getUserLevel(state.user)
   },
   rank: (state) => (userId) => {
-    const histgram = Array(9)
-    histgram.fill(0)
-    for (const user of state.items) {
-      const level = getUserLevel(user)
-      histgram[level]++
-    }
-    const user = state.items.filter((u) => u.id === userId)
-    const level =  user.length === 1 ? getUserLevel(user[0]) : -1
-    if (level < 0) {
-      console.log('level < 0')
-      return -1
-    }
-
     let rank = 1
-    for (let i = level + 1; i < 9; i++) {
-      rank += histgram[i]
+    const userLevel = getUserLevel(state.user)
+    const hist = histgramToNumber(state.hist)
+    for (let i = userLevel + 1; i < 9; i++) {
+      for (const univ of univList) {
+        rank += hist[univ][i]
+      }
     }
     return rank
   },
   joinedEventListLength: (state) => (userId, category) => {
-    const user = state.items.filter((u) => u.id === userId)
-    if (user.length !== 1) {
-      console.log('users no found')
-      return null
-    }
-    return user[0][category].length
+    return state.user[category].length
   }
 }
 
 export const actions = {
-  bind: firestoreAction(function ({ bindFirestoreRef }) {
-    return bindFirestoreRef('items', this.$fire.firestore.collection('users'))
+  // bind: firestoreAction(function ({ bindFirestoreRef }) {
+  //   return bindFirestoreRef('items', this.$fire.firestore.collection('users'))
+  // }),
+  bindUser: firestoreAction(function ({ bindFirestoreRef }, docId) {
+    return bindFirestoreRef('user', this.$fire.firestore.collection('users').doc(docId))
+  }),
+  bindHistgram: firestoreAction(function ({ bindFirestoreRef }) {
+    return bindFirestoreRef('hist', this.$fire.firestore.collection('users').doc('histgram'))
   }),
   add: firestoreAction(function (_, user) {
-    console.log("userData:", user)
-    console.log("user.photoURL:", user.photoURL)
+    // console.log("userData:", user)
+    // console.log("user.photoURL:", user.photoURL)
     // すでにドキュメントにuser.photoURLがある人は, 初期化したくない！
     const docUser = this.$fire.firestore.collection('users').doc(user.photoURL)
     docUser.get().then((doc) => {
