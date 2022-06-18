@@ -97,7 +97,10 @@ export default {
         'GroupDiscussion',
         'Interview',
       ]
-      const link = '/event/' + eventList[idx]
+      // const univ = this.$store.getters['users/univ'](this.loginUserId) // Bc={名古屋大学, 名古屋工業大学}
+      const univ = 'test'
+      console.log("univ:", univ);
+      const link = '/event/' + eventList[idx] // 名古屋大学=NU, 名工大=NIT
       console.log(link)
       return function () {
         this.$router.push(link)

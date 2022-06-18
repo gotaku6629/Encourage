@@ -38,7 +38,13 @@ export default {
         GD: 'GroupDiscussion',
         面接: 'Interview',
       }
-      const link = '/event/' + eventList[this.category]
+      let link = ''
+      const univ = this.$store.getters['users/univ'](this.loginUserId) // Bc={名古屋大学, 名古屋工業大学}
+      console.log('univ:', univ);      
+      if (univ === '名古屋大学')
+        link = '/NU_event/' + eventList[this.category]
+      else if (univ === '名古屋工業大学')
+        link = '/NIT_event/' + eventList[this.category]
       console.log(link)
       this.$router.push(link)
     },
