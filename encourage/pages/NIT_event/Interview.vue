@@ -4,9 +4,9 @@
       <v-btn outlined nuxt to="/">
         <v-icon left> mdi-chevron-left </v-icon>Top Page
       </v-btn>
-
+            
       <v-card class="mt-5 mt-8" color="red lighten-5">
-        <v-card-title> キャリア設計イベント</v-card-title>
+        <v-card-title> 面接対策イベント</v-card-title>
 
         <v-card-text>
           <v-container>
@@ -48,7 +48,7 @@
                           {{ event.deadline }}
                         </div>
                       </div>
-                                          
+                    
                       <v-card-text> {{ event.zcom }} </v-card-text>
 
                       <button @click="externalLink(event.url)">
@@ -68,6 +68,7 @@
           </v-container>
         </v-card-text>
 
+
       </v-card>
     </v-content>
   </v-app>
@@ -79,7 +80,7 @@ export default {
 
   computed: {
     events() {
-      return this.$store.getters['events/byCategory']("キャリア設計")
+      return this.$store.getters['NITevents/byCategory']("面接")
     },
   },
 

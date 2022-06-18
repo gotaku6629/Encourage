@@ -19,6 +19,7 @@ const univList = [
 function getUserLevel(user) {
   let level = 0
   for (const key of eventKindList) {
+    console.log("User:", user);
     level += user[key].length > 0 ? 1 : 0
   }
   return level
@@ -85,7 +86,17 @@ export const getters = {
   },
   joinedEventListLength: (state) => (userId, category) => {
     return state.user[category].length
-  }
+  },
+  univ: (state) => (userId) => {
+    // console.log("univ --  UserId:", userId);
+    const res = state.user
+    // console.log("state.user:", res);
+    // const res = state.user.filter((userx) => userx.id === userId)
+    // console.log("univ - - - Bc:", res.Bc);
+    // console.log("univ - - - Bc:", res.Bc);
+    return res.Bc
+  },
+
 }
 
 export const actions = {
@@ -99,13 +110,14 @@ export const actions = {
     return bindFirestoreRef('hist', this.$fire.firestore.collection('users').doc('histgram'))
   }),
   add: firestoreAction(function (_, user) {
-    // console.log("userData:", user)
-    // console.log("user.photoURL:", user.photoURL)
+    console.log("userData:", user)
+    console.log("univ", user.photoURL)
     // すでにドキュメントにuser.photoURLがある人は, 初期化したくない！
     const docUser = this.$fire.firestore.collection('users').doc(user.photoURL)
     docUser.get().then((doc) => {
       if (doc.exists){
         console.log("Document data:", doc.data())
+        this.$fire.firestore.collection('users').doc(user.photoURL).set({'Cv': 1}, { merge: true})
         return -1
       } else {
         console.log("No such document!")
@@ -113,13 +125,14 @@ export const actions = {
         .collection('users')
         // .doc(user.uid) // ここ修正！
         .doc(user.photoURL) // とりあえず、photoURLを用いる！
-        .set({'Am': user.displayName, '就活講座': [], 'キャリア設計': [], '合同説明会': [], '個社説明会・インターン': [], '自己分析': [], 'ES': [], 'GD': [], '面接': []})
+        .set({'Am': user.displayName, 'Bc': user.tenantId, 'Cv': 1, '就活講座': [], 'キャリア設計': [], '合同説明会': [], '個社説明会・インターン': [], '自己分析': [], 'ES': [], 'GD': [], '面接': []})
       }
     }).catch((error) => {
       console.log("Error getting document:", error);
       return -1
     });
   }),
+  
   sampleSet: firestoreAction(function (_, users) {
     for (const user of users) {
       this.$fire.firestore

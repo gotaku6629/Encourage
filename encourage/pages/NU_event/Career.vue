@@ -6,7 +6,7 @@
       </v-btn>
 
       <v-card class="mt-5 mt-8" color="red lighten-5">
-        <v-card-title> ES (エントリーシート)</v-card-title>
+        <v-card-title> キャリア設計イベント</v-card-title>
 
         <v-card-text>
           <v-container>
@@ -48,7 +48,7 @@
                           {{ event.deadline }}
                         </div>
                       </div>
-                    
+                                          
                       <v-card-text> {{ event.zcom }} </v-card-text>
 
                       <button @click="externalLink(event.url)">
@@ -79,7 +79,7 @@ export default {
 
   computed: {
     events() {
-      return this.$store.getters['events/byCategory']("ES")
+      return this.$store.getters['NUevents/byCategory']("キャリア設計")
     },
   },
 

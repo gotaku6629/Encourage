@@ -24,9 +24,19 @@
                       type="email"
                       placeholder="ユーザー名"
                       name="email"
-                      style="margin-top: 10px"
+                      style="margin-top: 20px"
                     />
                   </div>
+                  <div class="field">
+                    <input
+                      v-model="univ"
+                      class="input"
+                      type="email"
+                      placeholder="大学名：{名古屋大学, 名古屋工業大学}"
+                      name="email"
+                      style="margin-top: 20px"
+                    />
+                  </div>                  
                   <div class="field">
                     <input
                       v-model="encourage_Id"
@@ -85,6 +95,7 @@ export default {
       password: '',
       user: {},
       idError: '',
+      univ: '',
     }
   },
   methods: {
@@ -94,6 +105,7 @@ export default {
       bindHistgram: 'users/bindHistgram',
     }),
     signup() {
+      firebase.auth().tenantId = this.univ
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
@@ -101,17 +113,18 @@ export default {
           this.user = userCredential.user
           // ユーザー名、photoURLの登録
           this.user
-            .updateProfile({
+            .updateProfile({ // ユーザー表示名とプロフィール写真のURLを更新する！
               displayName: this.user_name,
-              // tenantId: this.encourage_Id,
-              // photoURL: 'sample'
               photoURL: this.encourage_Id, // photoURLで回してみる！
-              // uid: this.encourage_Id    // uIdは指定できない
             })
             .then(() => {
               // const res = this.createUser(this.user)
-              // console.log(res)
+              console.log('------ singup --------')
+              console.log('encourage_Id', this.encourage_Id)
+              console.log('user_name', this.user_name)
+              console.log('univ', this.univ)
               this.createUser(this.user).then(() => {
+              // this.createUser(this.encourage_Id, this.user_name, this.univ).then(() => {
                 // ユーザーデータをfirestoreから持ってくる
                 this.bindUser(this.encourage_Id).then(() => {
                   this.bindHistgram().then(() => {
@@ -119,7 +132,6 @@ export default {
                   })
                 })
               })
-              // this.$router.push('/')
             })
             .catch((error) => {
               this.idError = 'error'
