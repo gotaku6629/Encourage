@@ -6,7 +6,7 @@
       </v-btn>
 
       <v-card class="mt-5 mt-8" color="red lighten-5">
-        <v-card-title> GD (グループディスカッション)</v-card-title>
+        <v-card-title> ES (エントリーシート)</v-card-title>
 
         <v-card-text>
           <v-container>
@@ -79,7 +79,7 @@ export default {
 
   computed: {
     events() {
-      return this.$store.getters['events/byCategory']("GD")
+      return this.$store.getters['NUevents/byCategory']("ES")
     },
   },
 

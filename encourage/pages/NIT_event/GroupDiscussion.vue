@@ -6,7 +6,7 @@
       </v-btn>
 
       <v-card class="mt-5 mt-8" color="red lighten-5">
-        <v-card-title> 就活講座イベント</v-card-title>
+        <v-card-title> GD (グループディスカッション)</v-card-title>
 
         <v-card-text>
           <v-container>
@@ -67,6 +67,7 @@
             </v-row>
           </v-container>
         </v-card-text>
+
       </v-card>
     </v-content>
   </v-app>
@@ -78,7 +79,7 @@ export default {
 
   computed: {
     events() {
-      return this.$store.getters['events/byCategory']("就活講座")
+      return this.$store.getters['NITevents/byCategory']("GD")
     },
   },
 

@@ -67,7 +67,8 @@ export default {
   },
   created() {
     // this.bindUsers()
-    this.bindEvents()
+    this.bindNITEvents()
+    this.bindNUEvents()
     this.$fire.auth.onAuthStateChanged((user) => {
       if (user) {
         this.user = user
@@ -80,7 +81,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions({ bindEvents: 'events/bind'}),
+    ...mapActions({ bindNITEvents: 'NITevents/bind', bindNUEvents: 'NUevents/bind'}),
     async logout() {
       await this.$fire.auth.signOut()
       this.user = null

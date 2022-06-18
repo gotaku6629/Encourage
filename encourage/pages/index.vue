@@ -97,6 +97,7 @@ export default {
         'GroupDiscussion',
         'Interview',
       ]
+      // ここは使ってない！
       // const univ = this.$store.getters['users/univ'](this.loginUserId) // Bc={名古屋大学, 名古屋工業大学}
       const univ = 'test'
       console.log("univ:", univ);
