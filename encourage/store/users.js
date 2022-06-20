@@ -111,7 +111,23 @@ export const actions = {
   }),
   add: firestoreAction(function (_, user) {
     console.log("userData:", user)
-    console.log("univ", user.photoURL)
+    console.log("name:univ", user.displayName)
+
+    // univの位置を見る：
+    const fidx = user.displayName.indexOf(':');
+    const lidx = user.displayName.length
+    let myName = '';
+    for (let i=0; i<fidx; i++){
+      myName += user.displayName[i];
+    }
+    console.log("myName", myName)
+
+    let nameUniv = '';
+    for (let i=fidx+1; i<lidx; i++){
+      nameUniv += user.displayName[i];
+    }
+    console.log("nameUniv", nameUniv)
+
     // すでにドキュメントにuser.photoURLがある人は, 初期化したくない！
     const docUser = this.$fire.firestore.collection('users').doc(user.photoURL)
     docUser.get().then((doc) => {
@@ -125,7 +141,7 @@ export const actions = {
         .collection('users')
         // .doc(user.uid) // ここ修正！
         .doc(user.photoURL) // とりあえず、photoURLを用いる！
-        .set({'Am': user.displayName, 'Bc': user.tenantId, 'Cv': 1, '就活講座': [], 'キャリア設計': [], '合同説明会': [], '個社説明会・インターン': [], '自己分析': [], 'ES': [], 'GD': [], '面接': []})
+        .set({'Am': myName, 'Bc': nameUniv, 'Cv': 1, '就活講座': [], 'キャリア設計': [], '合同説明会': [], '個社説明会・インターン': [], '自己分析': [], 'ES': [], 'GD': [], '面接': []})
       }
     }).catch((error) => {
       console.log("Error getting document:", error);
