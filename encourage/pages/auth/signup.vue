@@ -105,7 +105,7 @@ export default {
       bindHistgram: 'users/bindHistgram',
     }),
     signup() {
-      firebase.auth().tenantId = this.univ
+      // firebase.auth().tenantId = this.univ;
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
@@ -114,7 +114,7 @@ export default {
           // ユーザー名、photoURLの登録
           this.user
             .updateProfile({ // ユーザー表示名とプロフィール写真のURLを更新する！
-              displayName: this.user_name,
+              displayName: this.user_name+':'+this.univ,
               photoURL: this.encourage_Id, // photoURLで回してみる！
             })
             .then(() => {
