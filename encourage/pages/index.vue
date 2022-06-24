@@ -19,6 +19,9 @@
       -->
       <v-card class="mt-5 mt-8" color="red lighten-5">
         <v-card-title> 就活イベント</v-card-title>
+        <v-btn @click="viewEventCalendar">
+          イベントカレンダー
+        </v-btn>
         <v-card-text>
           <v-container>
             <v-row v-for="i in 4" :key="i">
@@ -106,6 +109,9 @@ export default {
       return function () {
         this.$router.push(link)
       }
+    },
+    viewEventCalendar() {
+      this.$router.push('/calendar')
     },
   },
   computed: {
