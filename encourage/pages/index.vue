@@ -20,7 +20,7 @@
       <v-card class="mt-5 mt-8" color="red lighten-5">
         <v-card-title> 就活イベント</v-card-title>
         <v-btn @click="viewEventCalendar">
-          イベントカレンダー
+          イベントカレンダー <v-icon> mdi-chevron-right </v-icon>
         </v-btn>
         <v-card-text>
           <v-container>

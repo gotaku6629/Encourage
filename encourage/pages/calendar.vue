@@ -4,6 +4,9 @@
       <v-btn outlined nuxt to="/">
         <v-icon> mdi-chevron-left </v-icon>Top Page
       </v-btn>
+      <v-btn @click="addEvent">
+        add Event
+      </v-btn>
       <v-sheet height="64">
         <v-toolbar flat>
           <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
@@ -185,10 +188,30 @@ export default {
           timed: !allDay,
         })
       }
+      
+      events.push({
+        name: '就活講座',
+        start: new Date(2022, 6-1, 25, 13, 30, 30),
+        end: new Date(2022, 6-1, 25, 15, 50, 50),
+        color: 'blue',
+        timed: true,
+      })
       this.events = events
+      console.log(this.events)
     },
     rnd(a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a
+    },
+    addEvent() {
+      const events = this.events
+      events.push({
+        name: '就活講座',
+        start: new Date(2022, 6-1, 25, 13),
+        end: new Date(2022, 6-1, 25, 15),
+        color: 'red',
+        timed: true,
+      })
+      this.events = events
     },
   },
 }
