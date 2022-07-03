@@ -6,7 +6,6 @@
           <v-btn outlined nuxt to="/">
             <v-icon> mdi-chevron-left </v-icon>Top Page
           </v-btn>
-          <!-- <v-btn @click="addEvent"> add Event </v-btn> -->
           <v-spacer></v-spacer>
           <v-menu bottom right offset-y>
             <template v-slot:activator="{ on, attrs }">
@@ -46,9 +45,6 @@
             {{ defaultCalendarTitle }}
           </v-toolbar-title>
           <v-spacer></v-spacer>
-          <!-- <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
-            Today
-          </v-btn> -->
           <v-menu bottom right offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn outlined color="grey darken-2" v-bind="attrs" v-on="on">
@@ -89,7 +85,6 @@
           @click:event="showEvent"
           @click:more="viewDay"
           @click:date="viewDay"
-          @change="updateRange"
         >
           <template v-slot:event="{ event }">
             &thinsp; {{ event.name }}
@@ -101,37 +96,26 @@
           :activator="selectedElement"
           offset-x
           offset-y
-          :min-width="width < 600 ? width * 0.7 : 600*0.7"
+          :min-width="width < 600 ? width * 0.7 : 600 * 0.7"
         >
-          <v-card color="grey lighten-4" flat>
+          <v-card color="grey lighten-4" :width="width < 600 ? width * 0.7 : 600 * 0.7" flat>
             <v-toolbar :color="selectedEvent.color" dark>
-              <!-- <v-btn icon>
-                <v-icon>mdi-pencil</v-icon>
-              </v-btn> -->
               <v-toolbar-title v-html="selectedEvent.name" />
-              <!-- <v-spacer></v-spacer>
-              <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-              <v-btn icon>
-                <v-icon>mdi-dots-vertical</v-icon>
-              </v-btn> -->
             </v-toolbar>
-            <v-card-text>
-              <span v-html="selectedEvent.details"></span>
-              {{ width }}-{{ height }}
-            </v-card-text>
             <v-card-actions>
               <v-btn text color="secondary" @click="selectedOpen = false">
-                Cancel
+                閉じる
               </v-btn>
               <v-spacer></v-spacer>
-              <button @click="externalLink('https://www.google.com')">
+              <button @click="externalLink(selectedEvent.url)">
                 <v-btn color="orange" style="text-transform: none">
-                  Click
+                  詳細URL
                 </v-btn>
               </button>
             </v-card-actions>
+            <v-card-text>
+              <span v-html="selectedEvent.details"></span>
+            </v-card-text>
           </v-card>
         </v-menu>
       </v-sheet>
@@ -143,6 +127,10 @@
 export default {
   name: 'CalendarPage',
   data: () => ({
+    user: {},
+    username: '',
+    isLogined: false,
+    loginUserId: '', // this.$fire.auth.currentUser.uid, // ログインid
     width: window.innerWidth,
     height: window.innerHeight,
     defaultCalendarTitle: '',
@@ -198,112 +186,68 @@ export default {
     selectedOpen: false,
     allEvents: [],
     events: [],
-    colors: [
-      'red',
-      'blue',
-      'indigo',
-      'deep-purple',
-      'cyan',
-      'green',
-      'orange',
-      'grey darken-1',
-    ],
-    names: [
-      'Meeting',
-      'Holiday',
-      'PTO',
-      'Travel',
-      'Event',
-      'Birthday',
-      'Conference',
-      'Party',
-    ],
   }),
   created() {
-    this.allEvents = [
-      {
-        name: '就活イベント',
-        start: new Date(2022, 7 - 1, 1, 13, 30, 30),
-        end: new Date(2022, 7 - 1, 1, 13, 50, 30),
-        timed: true,
-        details: 'イベント詳細について <br>zcom',
-        category: '就活講座',
-      },
-      {
-        name: '就活イベント',
-        start: new Date(2022, 7 - 1, 2, 13, 30, 30),
-        end: new Date(2022, 7 - 1, 2, 13, 50, 30),
-        timed: true,
-        details: 'イベント詳細について <br>zcom',
-        category: 'キャリア設計',
-      },
-      {
-        name: '就活イベント',
-        start: new Date(2022, 7 - 1, 3, 13, 30, 30),
-        end: new Date(2022, 7 - 1, 3, 13, 50, 30),
-        timed: true,
-        details: 'イベント詳細について <br>zcom',
-        category: '合同説明会',
-      },
-      {
-        name: '就活イベント',
-        start: new Date(2022, 7 - 1, 4, 13, 30, 30),
-        end: new Date(2022, 7 - 1, 4, 13, 50, 30),
-        timed: true,
-        details: 'イベント詳細について <br>zcom',
-        category: '個社説明会・インターン',
-      },
-      {
-        name: '就活イベント',
-        start: new Date(2022, 7 - 1, 5, 13, 30, 30),
-        end: new Date(2022, 7 - 1, 5, 13, 50, 30),
-        timed: true,
-        details: 'イベント詳細について <br>zcom',
-        category: '自己分析',
-      },
-      {
-        name: '就活イベント',
-        start: new Date(2022, 7 - 1, 6, 13, 30, 30),
-        end: new Date(2022, 7 - 1, 6, 13, 50, 30),
-        timed: true,
-        details: 'イベント詳細について <br>zcom',
-        category: 'ES',
-      },
-      {
-        name: '就活イベント',
-        start: new Date(2022, 7 - 1, 7, 13, 30, 30),
-        end: new Date(2022, 7 - 1, 7, 13, 50, 30),
-        timed: true,
-        details: 'イベント詳細について <br>zcom',
-        category: 'GD',
-      },
-      {
-        name: '就活イベント',
-        start: new Date(2022, 7 - 1, 7, 13, 30, 30),
-        end: new Date(2022, 7 - 1, 7, 13, 50, 30),
-        timed: true,
-        details: 'イベント詳細について <br>zcom',
-        category: 'GD',
-      },
-      {
-        name: '就活イベント',
-        start: new Date(2022, 7 - 1, 8, 13, 30, 30),
-        end: new Date(2022, 7 - 1, 8, 13, 50, 30),
-        timed: true,
-        details: 'イベント詳細について <br>zcom',
-        category: '面接',
-      },
-    ]
-    for (const event of this.allEvents) {
-      event.color = this.category[event.category].color
-    }
-    this.events = this.allEvents
+    this.$fire.auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.loginUserId = user.photoURL // encourage_idを利用！
+        this.user = user
+        this.username = user
+        this.isLogined = !!user
+        if (this.user.photoURL === 'sample') {
+          this.user.photoURL = null
+        }
+        const univ = this.$store.getters['users/univ'](this.loginUserId) // Bc={名古屋大学, 名古屋工業大学}
+        let obtainedEvents = []
+        if (univ === '名古屋大学') {
+          obtainedEvents = this.$store.getters['NUevents/all']
+        } else if (univ === '名古屋工業大学') {
+          obtainedEvents = this.$store.getters['NITevents/all']
+        }
+
+        const events = []
+        for (const e of obtainedEvents) {
+          if (!Object.prototype.hasOwnProperty.call(e, 'daytime')) continue;
+          for (const d of e.daytime) {
+            const date = d.day.split('(')
+            const yearMonthDay = date[0].split('/')
+            const startHourMinute = d.start.split(':')
+            const endHourMinute = d.end.split(':')
+            events.push({
+              name: e.ctitle,
+              start: new Date(
+                yearMonthDay[0],
+                yearMonthDay[1] - 1,
+                yearMonthDay[2],
+                startHourMinute[0],
+                startHourMinute[1]
+              ),
+              end: new Date(
+                yearMonthDay[0],
+                yearMonthDay[1] - 1,
+                yearMonthDay[2],
+                endHourMinute[0],
+                endHourMinute[1]
+              ),
+              timed: !(startHourMinute[0]===endHourMinute[0] && startHourMinute[1]===endHourMinute[1]),
+              details: e.zcom,
+              category: e.category,
+              color: this.category[e.category].color,
+              url: e.url,
+            })
+          }
+        }
+        this.allEvents = events
+        this.events = events
+      } else {
+        this.user = null
+      }
+    })
 
     const now = new Date()
     const year = now.getFullYear()
     const month = now.getMonth() + 1
     this.defaultCalendarTitle = month + '月' + ' ' + year
-    
   },
   mounted() {
     this.$refs.calendar.checkChange()
@@ -320,9 +264,6 @@ export default {
     },
     getEventColor(event) {
       return event.color
-    },
-    setToday() {
-      this.focus = ''
     },
     prev() {
       this.$refs.calendar.prev()
@@ -347,21 +288,6 @@ export default {
         open()
       }
       nativeEvent.stopPropagation()
-    },
-    updateRange({ start, end }) {},
-    rnd(a, b) {
-      return Math.floor((b - a + 1) * Math.random()) + a
-    },
-    addEvent() {
-      const events = this.events
-      events.push({
-        name: '就活講座',
-        start: new Date(2022, 7 - 1, 25, 13),
-        end: new Date(2022, 7 - 1, 25, 15),
-        color: 'red',
-        timed: true,
-      })
-      this.events = events
     },
     externalLink(url) {
       window.open(url, '_blank')

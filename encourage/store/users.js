@@ -19,7 +19,6 @@ const univList = [
 function getUserLevel(user) {
   let level = 0
   for (const key of eventKindList) {
-    console.log("User:", user);
     level += user[key].length > 0 ? 1 : 0
   }
   return level
