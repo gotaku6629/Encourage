@@ -53,17 +53,12 @@
               </v-btn>
             </template>
             <v-list>
-              <v-list-item @click="type = 'day'">
-                <v-list-item-title>Day</v-list-item-title>
-              </v-list-item>
-              <v-list-item @click="type = 'week'">
-                <v-list-item-title>Week</v-list-item-title>
-              </v-list-item>
-              <v-list-item @click="type = 'month'">
-                <v-list-item-title>Month</v-list-item-title>
-              </v-list-item>
-              <v-list-item @click="type = '4day'">
-                <v-list-item-title>4 days</v-list-item-title>
+              <v-list-item
+                v-for="(value, key) in typeToLabel"
+                :key="key"
+                @click="type = key"
+              >
+                <v-list-item-title>{{ value }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -98,7 +93,11 @@
           offset-y
           :min-width="width < 600 ? width * 0.7 : 600 * 0.7"
         >
-          <v-card color="grey lighten-4" :width="width < 600 ? width * 0.7 : 600 * 0.7" flat>
+          <v-card
+            color="grey lighten-4"
+            :width="width < 600 ? width * 0.7 : 600 * 0.7"
+            flat
+          >
             <v-toolbar :color="selectedEvent.color" dark>
               <v-toolbar-title v-html="selectedEvent.name" />
             </v-toolbar>
@@ -137,10 +136,10 @@ export default {
     focus: '',
     type: 'month',
     typeToLabel: {
-      month: 'Month',
-      week: 'Week',
-      day: 'Day',
-      '4day': '4 Days',
+      month: '月',
+      week: '週',
+      day: '日',
+      '4day': '4日',
     },
     nowCategory: 'すべて',
     category: {
@@ -207,7 +206,7 @@ export default {
 
         const events = []
         for (const e of obtainedEvents) {
-          if (!Object.prototype.hasOwnProperty.call(e, 'daytime')) continue;
+          if (!Object.prototype.hasOwnProperty.call(e, 'daytime')) continue
           for (const d of e.daytime) {
             const date = d.day.split('(')
             const yearMonthDay = date[0].split('/')
@@ -229,7 +228,10 @@ export default {
                 endHourMinute[0],
                 endHourMinute[1]
               ),
-              timed: !(startHourMinute[0]===endHourMinute[0] && startHourMinute[1]===endHourMinute[1]),
+              timed: !(
+                startHourMinute[0] === endHourMinute[0] &&
+                startHourMinute[1] === endHourMinute[1]
+              ),
               details: e.zcom,
               category: e.category,
               color: this.category[e.category].color,
