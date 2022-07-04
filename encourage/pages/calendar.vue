@@ -207,6 +207,8 @@ export default {
         const events = []
         for (const e of obtainedEvents) {
           if (!Object.prototype.hasOwnProperty.call(e, 'daytime')) continue
+          if (e.category === '') continue
+          if (e.daytime[0].day === '' || e.daytime[0].start === '' || e.daytime[0].end === '') continue
           for (const d of e.daytime) {
             const date = d.day.split('(')
             const yearMonthDay = date[0].split('/')
@@ -252,6 +254,14 @@ export default {
     this.defaultCalendarTitle = month + '月' + ' ' + year
   },
   mounted() {
+    const univ = this.$store.getters['users/univ'](this.loginUserId) // Bc={名古屋大学, 名古屋工業大学}
+    let obtainedEvents = []
+    if (univ === '名古屋大学') {
+      obtainedEvents = this.$store.getters['NUevents/all']
+    } else if (univ === '名古屋工業大学') {
+      obtainedEvents = this.$store.getters['NITevents/all']
+    }
+
     this.$refs.calendar.checkChange()
     window.addEventListener('resize', this.handleResize)
   },
