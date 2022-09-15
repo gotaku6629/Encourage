@@ -76,7 +76,16 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+    // baseURL: '/',
+    proxy: true, // add for CORS
+  },
+
+  // add for CORS
+  proxy: {
+    '/api': {
+      target: 'https://script.google.com/macros/s/AKfycbyFlxjRDK_SXU5jO8eHB811l4l86kvxF41hZYg3KmbUxNJFANfep1KVLu33m_Jqle6y/exec',
+      pathRewrite: { '^/api': '' },
+    }
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
@@ -107,4 +116,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  // loading option
+  loading: true
 }

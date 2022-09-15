@@ -11,28 +11,30 @@
       <v-btn v-if="!user" color="primary" nuxt to="/auth/login">
         Sing In / Sign Up
       </v-btn>
+
       <v-menu v-else offset-y>
         <template #activator="{ on }">
           <v-btn v-on="on">
-            <v-avatar size="36" color="primary">
-              <v-img v-if="user.photoURL" :src="user.photoURL"></v-img>
-              <span v-else class="white--text text-h5">{{
-                user.displayName.slice(0, 2)
-              }}</span>
+            <v-avatar size="36" color="white">
+              <v-img v-if="univ === '名古屋工業大学'" :src="niturl"></v-img>
+              <v-img v-else-if="univ === '名古屋大学'" :src="nuurl"></v-img>
             </v-avatar>
-            <strong class="mx-3">{{ user.displayName }}</strong>
+            <strong class="mx-3">{{ username }}</strong>
           </v-btn>
         </template>
+
         <v-card>
           <v-list-item-content class="justify-center">
             <div class="mx-auto text-center px-3">
-              <v-avatar color="primary">
-                <v-img v-if="user.photoURL" :src="user.photoURL"></v-img>
-                <span v-else class="white--text text-h5">{{
-                  user.displayName.slice(0, 2)
-                }}</span>
+              <v-avatar color="white">
+                <v-img v-if="univ === '名古屋工業大学'" :src="niturl"></v-img>
+                <v-img v-else-if="univ === '名古屋大学'" :src="nuurl"></v-img>
               </v-avatar>
-              <h3>{{ user.displayName }}</h3>
+              <h3>{{ username }}</h3>
+
+              <p class="text-caption mt-1">
+                {{ univ }}
+              </p>              
               <p class="text-caption mt-1">
                 {{ user.email }}
               </p>
@@ -43,8 +45,11 @@
             </div>
           </v-list-item-content>
         </v-card>
+
       </v-menu>
+
     </v-app-bar>
+
     <v-main>
       <v-container>
         <Nuxt />
@@ -63,6 +68,10 @@ export default {
     return {
       title: 'en-courage',
       user: null,
+      username: '',
+      univ: '',
+      niturl: '',
+      nuurl: '',
     }
   },
   created() {
@@ -75,6 +84,29 @@ export default {
         if (this.user.photoURL === "sample") {
           this.user.photoURL = null
         }
+        // displaynameの分解⇒ username:univ
+        console.log("----- default -----")
+        console.log("user", user)
+        console.log("user.displayName", user.displayName)
+
+        const fidx = user.displayName.indexOf(':');
+        const lidx = user.displayName.length
+        let username = '';
+        for (let i=0; i<fidx; i++){
+          username += user.displayName[i];
+        }
+        console.log("username", username)
+        this.username = username;
+
+        let univ = '';
+        for (let i=fidx+1; i<lidx; i++){
+          univ += user.displayName[i];
+        }
+        console.log("univ", univ)
+        this.univ = univ;
+
+        this.niturl = 'https://upload.wikimedia.org/wikipedia/commons/6/61/Nit-logo.gif'
+        this.nuurl  = 'https://pbs.twimg.com/profile_images/1432505324192239620/P-iOmlp2_400x400.jpg' 
       } else {
         this.user = null
       }

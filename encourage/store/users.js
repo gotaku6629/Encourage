@@ -120,7 +120,6 @@ export const actions = {
       myName += user.displayName[i];
     }
     console.log("myName", myName)
-
     let nameUniv = '';
     for (let i=fidx+1; i<lidx; i++){
       nameUniv += user.displayName[i];
