@@ -19,10 +19,36 @@
       <v-card class="mt-5 mt-8" color="black">
       -->
       <v-card class="mt-5 mt-8" color="red lighten-5">
-        <v-card-title> 就活イベント</v-card-title>
-        <v-btn @click="viewEventCalendar" v-if="isLogined">
-          イベントカレンダー <v-icon> mdi-chevron-right </v-icon>
-        </v-btn>
+        <v-tabs
+          v-model="tab"
+          background-color="pink lighten-1"
+          centered
+          dark
+          icons-and-text>
+          <v-tabs-slider></v-tabs-slider>
+    
+          <v-tab href="#tab-1" @click="checkMypage" v-if="isLogined">
+            マイページ
+            <v-icon>mdi-account</v-icon>
+          </v-tab>
+    
+          <v-tab href="#tab-2" @click="viewEventCalendar" v-if="isLogined">
+            イベントカレンダー
+            <v-icon>mdi-calendar</v-icon>
+          </v-tab>
+    
+          <v-tab href="#tab-3" @click="externalLink('https://sites.google.com/en-courage.net/10en-counter/%E3%83%9B%E3%83%BC%E3%83%A0')" v-if="isLogined">
+            エンカウンター
+            <v-icon>mdi-account-box</v-icon>
+          </v-tab>
+
+          <v-tab href="#tab-4" @click="recommendEvent" v-if="isLogined">
+            おすすめイベント
+            <v-icon>mdi-heart</v-icon>
+          </v-tab>
+        </v-tabs>
+
+        <v-card-title> 就活イベント </v-card-title>
         <v-card-text>
           <v-container>
             <v-row v-for="i in 4" :key="i">
@@ -70,26 +96,63 @@ export default {
     user: {},
     username: '',
     isLogined: false,
+    univ: '',
+    niturl: '',
+    nuurl: '',    
     eventKindList,
     loginUserId: '', // this.$fire.auth.currentUser.uid, // ログインid
+    userdata: {
+      updateusername: '',  // ユーザー情報更新用
+      updateuniv: '',
+    },
   }),
   created() {
     this.$fire.auth.onAuthStateChanged((user) => {
       if (user) {
-        this.loginUserId = user.photoURL // encourage_idを利用！
+        console.log("----- index -----")
         this.user = user
-        this.username = user
+        this.loginUserId = user.photoURL // encourage_idを利用！
         this.isLogined = !!user
-        // console.log(user)
-        if (this.user.photoURL === 'sample') {
-          this.user.photoURL = null
+
+        // displaynameの分解⇒ username:univ
+        const fidx = user.displayName.indexOf(':');
+        const lidx = user.displayName.length
+        let username = '';
+        for (let i=0; i<fidx; i++){
+          username += user.displayName[i];
         }
+        console.log("username", username)
+        this.username = username;
+        let univ = '';
+        for (let i=fidx+1; i<lidx; i++){
+          univ += user.displayName[i];
+        }
+        console.log("univ", univ)
+        this.univ = univ;
+
+        // ユーザー情報の更新
+        this.userdata.updateusername = username;
+        this.userdata.updateuniv = univ;
+        this.updateUserdata()
+
+        this.niturl = 'https://upload.wikimedia.org/wikipedia/commons/6/61/Nit-logo.gif'
+        this.nuurl  = 'https://pbs.twimg.com/profile_images/1432505324192239620/P-iOmlp2_400x400.jpg' 
+
       } else {
         this.user = null
       }
     })
   },
+  /*
+  mounted() {
+    this.updateUserdata()
+  },
+  */
   methods: {
+    updateUserdata() {
+      console.log("updateUserdata", this.userdata)
+      this.$nuxt.$emit('updateUserdata', this.userdata)
+    },
     viewEventList(idx) {
       const eventList = [
         'Class',
@@ -114,6 +177,15 @@ export default {
     viewEventCalendar() {
       this.$router.push('/calendar')
     },
+    checkMypage() {
+      this.$router.push('/mypage')
+    },
+    externalLink(url) {
+      window.open(url, '_blank')
+    },
+    recommendEvent() {
+      this.$router.push('/recommend')
+    },       
   },
   computed: {
   },

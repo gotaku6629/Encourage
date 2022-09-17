@@ -6,7 +6,7 @@
       </v-btn>
 
       <v-card class="mt-5 mt-8" color="red lighten-5">
-        <v-card-title> キャリア設計イベント</v-card-title>
+        <v-card-title> おすすめイベント</v-card-title>
 
         <v-card-text>
           <v-container>
@@ -75,11 +75,20 @@
 
 <script>
 export default {
-  name: 'EventListPage1',
-
+  name: 'RecommendEvent',
+  data() {
+      return {
+        // loginUserId: this.$fire.auth.currentUser.uid,   // ログインid
+        loginUserId: this.$fire.auth.currentUser.photoURL, // 変更
+      }
+    },
   computed: {
     events() {
-      return this.$store.getters['NITevents/byCategory']("キャリア設計")
+      console.log('---- recommend ----')
+      const user = this.$store.getters['users/byId'](this.loginUserId)
+      console.log(user)
+      console.log('return', this.$store.getters['NITevents/byRecommend'](user))
+      return this.$store.getters['NITevents/byRecommend'](user)
     },
   },
 

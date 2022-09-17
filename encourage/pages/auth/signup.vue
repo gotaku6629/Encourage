@@ -130,8 +130,14 @@ export default {
     async getUsers(username, phonenumber){  // 非同期関数
       console.log('------ getUsers --------')
       this.$nuxt.$loading.start();
-      this.encourage_Id = await this.$axios.$get('/api', {
+      // this.encourage_Id = await this.$axios.$get('/api', {
+      // 愚直なREST API参考：https://pg-log.com/nuxt-vue-wp-rest-api/
+      this.encourage_Id = await this.$axios.$get('https://script.google.com/macros/s/AKfycbyFlxjRDK_SXU5jO8eHB811l4l86kvxF41hZYg3KmbUxNJFANfep1KVLu33m_Jqle6y/exec', {  
         params: {username, phonenumber},
+      })
+      .catch(err => { // リクエスト失敗時
+        console.log('Get Method Error')
+        console.log(err.response)
       })
       this.$nuxt.$loading.finish();
       // console.log(this.encourage_Id)
@@ -139,22 +145,26 @@ export default {
       // console.log(this.encourage_Id)
     },
     async signup2() {
+      /*
       await this.getUsers(this.username, this.phonenumber)
       console.log('waiting...')
       this.signup();
+      */
+      await this.getUsers(this.username, this.phonenumber)
+      .then(() => {
+        this.signup();
+      })
     },
-    signup() {
-      // this.$nuxt.$loading.start()
-      // this.username = '小島のどか';
-      // this.phonenumber = '09081856766';
-      // this.univ = '名古屋工業大学'
-      // this.getUsers(this.username, this.phonenumber); // GASからencourage_Idの取得
+    signup() {  
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)     
         .then((userCredential) => {
           this.user = userCredential.user
-          // this.getUsers(this.username, this.phonenumber)
+          console.log('------ update --------')
+          console.log('username', this.username)
+          console.log('univ', this.univ)
+          console.log('encourage_Id', this.encourage_Id)
           this.user.updateProfile({        // ユーザー表示名とプロフィール写真のURLを更新する！
               displayName: this.username+':'+this.univ,
               photoURL: this.encourage_Id, // photoURLで回してみる！

@@ -16,10 +16,10 @@
         <template #activator="{ on }">
           <v-btn v-on="on">
             <v-avatar size="36" color="white">
-              <v-img v-if="univ === '名古屋工業大学'" :src="niturl"></v-img>
-              <v-img v-else-if="univ === '名古屋大学'" :src="nuurl"></v-img>
+              <v-img v-if="userdata.updateuniv === '名古屋工業大学'" :src="niturl"></v-img>
+              <v-img v-else-if="userdata.updateuniv === '名古屋大学'" :src="nuurl"></v-img>
             </v-avatar>
-            <strong class="mx-3">{{ username }}</strong>
+            <strong class="mx-3">{{ userdata.updateusername }}</strong>
           </v-btn>
         </template>
 
@@ -27,11 +27,10 @@
           <v-list-item-content class="justify-center">
             <div class="mx-auto text-center px-3">
               <v-avatar color="white">
-                <v-img v-if="univ === '名古屋工業大学'" :src="niturl"></v-img>
-                <v-img v-else-if="univ === '名古屋大学'" :src="nuurl"></v-img>
+                <v-img v-if="userdata.updateuniv === '名古屋工業大学'" :src="niturl"></v-img>
+                <v-img v-else-if="userdata.updateuniv === '名古屋大学'" :src="nuurl"></v-img>
               </v-avatar>
-              <h3>{{ username }}</h3>
-
+              <h3>{{ userdata.updateusername }}</h3>
               <p class="text-caption mt-1">
                 {{ univ }}
               </p>              
@@ -55,9 +54,11 @@
         <Nuxt />
       </v-container>
     </v-main>
+
     <v-footer app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
+
   </v-app>
 </template>
 
@@ -70,14 +71,17 @@ export default {
       user: null,
       username: '',
       univ: '',
-      niturl: '',
-      nuurl: '',
+      niturl: 'https://upload.wikimedia.org/wikipedia/commons/6/61/Nit-logo.gif',
+      nuurl: 'https://pbs.twimg.com/profile_images/1432505324192239620/P-iOmlp2_400x400.jpg',
+      userdata: {},
     }
   },
   created() {
-    // this.bindUsers()
+    this.bindUsers()
     this.bindNITEvents()
     this.bindNUEvents()
+    this.setListener()
+    
     this.$fire.auth.onAuthStateChanged((user) => {
       if (user) {
         this.user = user
@@ -113,11 +117,20 @@ export default {
     })
   },
   methods: {
-    ...mapActions({ bindNITEvents: 'NITevents/bind', bindNUEvents: 'NUevents/bind'}),
+    ...mapActions({ bindUsers: 'users/bind', bindNITEvents: 'NITevents/bind', bindNUEvents: 'NUevents/bind'}),
     async logout() {
       await this.$fire.auth.signOut()
       this.user = null
     },
+    setListener() {
+      // emitで発火させたイベント名にする
+      this.$nuxt.$on('updateUserdata', this.setHeader)
+    },
+    setHeader(userdata) {
+      // 第1引数にはemitで渡した値が入ってくる。
+      // 第2引数以降を渡す場合も同様に、それ以降の引数で受け取れる
+      this.userdata = userdata || ''      
+    }
   },
 }
 </script>
