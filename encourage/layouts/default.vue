@@ -77,7 +77,6 @@ export default {
     }
   },
   created() {
-    this.bindUsers()
     this.bindNITEvents()
     this.bindNUEvents()
     this.setListener()
@@ -117,7 +116,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions({ bindUsers: 'users/bind', bindNITEvents: 'NITevents/bind', bindNUEvents: 'NUevents/bind'}),
+    ...mapActions({ bindNITEvents: 'NITevents/bind', bindNUEvents: 'NUevents/bind'}),
     async logout() {
       await this.$fire.auth.signOut()
       this.user = null

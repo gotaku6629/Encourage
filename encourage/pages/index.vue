@@ -71,6 +71,7 @@
 </template>
 
 <script>
+// import { mapActions } from 'vuex'  
 import RankingCard from '../components/RankingCard.vue'
 import CategoryButton from '../components/CategoryButton.vue'
 
@@ -113,7 +114,10 @@ export default {
         this.user = user
         this.loginUserId = user.photoURL // encourage_idを利用！
         this.isLogined = !!user
-
+        
+        // this.bindUsers(this.loginUserId)
+        // this.bindHistgram()
+        
         // displaynameの分解⇒ username:univ
         const fidx = user.displayName.indexOf(':');
         const lidx = user.displayName.length
@@ -149,6 +153,7 @@ export default {
   },
   */
   methods: {
+    // ...mapActions({ bindUsers: 'users/bindUser', bindHistgram: 'users/bindHistgram'}),
     updateUserdata() {
       console.log("updateUserdata", this.userdata)
       this.$nuxt.$emit('updateUserdata', this.userdata)

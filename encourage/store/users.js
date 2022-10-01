@@ -71,8 +71,8 @@ export const getters = {
   },
   level: (state) => (userId) => {
     console.log("--- users level ---")
-    console.log(state.user)
-    console.log(userId)
+    console.log("state.user", state.user)
+    console.log("userId", userId)
     return getUserLevel(state.user)
   },
   rank: (state) => (userId) => {

@@ -41,7 +41,7 @@
                       v-model="username"
                       class="input"
                       type="email"
-                      placeholder="ユーザー名"
+                      placeholder="名前 (e.g. 名工太郎)"
                       name="email"
                       style="margin-top: 20px"
                     />
@@ -63,7 +63,7 @@
                       v-model="phonenumber"
                       class="input"
                       type="email"
-                      placeholder="電話番号"
+                      placeholder="電話番号 (e.g. 09012345678)"
                       name="email"
                       style="margin-top: 20px"
                     />
@@ -83,7 +83,7 @@
                       v-model="password"
                       class="input"
                       type="password"
-                      placeholder="パスワード"
+                      placeholder="パスワード (6文字以上)"
                       maxlength="20"
                       name="password"
                       style="margin-top: 20px"
@@ -130,15 +130,23 @@ export default {
     async getUsers(username, phonenumber){  // 非同期関数
       console.log('------ getUsers --------')
       this.$nuxt.$loading.start();
-      // this.encourage_Id = await this.$axios.$get('/api', {
       // 愚直なREST API参考：https://pg-log.com/nuxt-vue-wp-rest-api/
-      this.encourage_Id = await this.$axios.$get('https://script.google.com/macros/s/AKfycbyFlxjRDK_SXU5jO8eHB811l4l86kvxF41hZYg3KmbUxNJFANfep1KVLu33m_Jqle6y/exec', {  
-        params: {username, phonenumber},
-      })
-      .catch(err => { // リクエスト失敗時
-        console.log('Get Method Error')
-        console.log(err.response)
-      })
+      if (this.univ === '名古屋工業大学'){
+        this.encourage_Id = await this.$axios.$get(
+          'https://script.google.com/macros/s/AKfycbyFlxjRDK_SXU5jO8eHB811l4l86kvxF41hZYg3KmbUxNJFANfep1KVLu33m_Jqle6y/exec',
+          { params: {username, phonenumber},}
+        )
+      } else if(this.univ === '名古屋大学'){
+        this.encourage_Id = await this.$axios.$get(
+          'https://script.google.com/macros/s/AKfycbz0lak_DYyssEHMA3Z_3WtLaFQlFtUyLpQzeJtbqOLFk_v0ioOmh-mb8LS59yl7oIUb/exec',
+          { params: {username, phonenumber},}
+        )
+      }
+      // .catch(err => { // リクエスト失敗時
+      //   console.log('Get Method Error')
+      //   console.log(err.response)
+      // }
+      // )
       this.$nuxt.$loading.finish();
       // console.log(this.encourage_Id)
       this.encourage_Id = String(this.encourage_Id)
