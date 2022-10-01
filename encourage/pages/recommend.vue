@@ -87,8 +87,14 @@ export default {
       console.log('---- recommend ----')
       const user = this.$store.getters['users/byId'](this.loginUserId)
       console.log(user)
-      console.log('return', this.$store.getters['NITevents/byRecommend'](user))
-      return this.$store.getters['NITevents/byRecommend'](user)
+      if (user.Bc === '名古屋工業大学'){
+        return this.$store.getters['NITevents/byRecommend'](user)
+      } else if (user.Bc === '名古屋大学'){
+        return this.$store.getters['NUevents/byRecommend'](user)
+      } else {
+        return -1
+      }
+      // console.log('return', this.$store.getters['NITevents/byRecommend'](user))
     },
   },
 

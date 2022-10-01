@@ -22,9 +22,12 @@
           </v-list-item-subtitle>
         </v-list-item-content>
   
-        <v-list-item-avatar>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/Nit-logo.gif" height="500">
+        <v-list-item-avatar v-if="userdata.Bc === '名古屋工業大学'">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/Nit-logo.gif" height="500">          
         </v-list-item-avatar>
+        <v-list-item-avatar v-else-if="userdata.Bc === '名古屋大学'">
+          <img src="https://pbs.twimg.com/profile_images/1432505324192239620/P-iOmlp2_400x400.jpg" height="500">          
+        </v-list-item-avatar>        
         <v-icon>mdi-account</v-icon>
       </v-list-item>
 
@@ -60,13 +63,23 @@
             <v-container>
               <v-row>
                 <v-col cols="6">
-                  <v-text-field v-model="user.業界" label="業界" />
+                  <!-- <v-text-field v-model="user.業界" label="業界" /> -->
+                  <v-autocomplete v-model="user.業界"
+                    :items="['メーカー', 'IT・通信', '建築・不動産', 'インフラ(エネルギー・鉄道等)', 'コンサルティング', '事業開発', '教育・人材', '医療・福祉', '物流・運輸', '広告・メディア・出版', '観光', '金融・証券・保険']"
+                    label="業界"
+                    multiple
+                  ></v-autocomplete>                  
                 </v-col>
                 <v-col cols="6">
-                  <v-text-field v-model="user.職種" label="職種" />
+                  <!-- <v-text-field v-model="user.職種" label="職種" /> -->
+                  <v-autocomplete v-model="user.職種"
+                    :items="['開発', 'SE・プログラマー', '生産技術', '企画・マーケティング', 'コンサルティング', '営業', '建築・施工管理', '事業開発']"
+                    label="職種"
+                    multiple
+                  ></v-autocomplete>                   
                 </v-col>
                 <v-col cols="12">
-                  <v-text-field v-model="user.メモ" label="メモ" />
+                  <v-text-field v-model="user.メモ" label="コメント(任意)" />
                 </v-col>
               </v-row>
             </v-container>
