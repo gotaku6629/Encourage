@@ -25,6 +25,7 @@ export default {
     return {}
   },
   computed: {
+  // mounted: {
     rank() {
       return this.$store.getters['users/rank'](this.loginUserId)
     },

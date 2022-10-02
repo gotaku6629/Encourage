@@ -106,9 +106,13 @@ export const actions = {
   //   return bindFirestoreRef('items', this.$fire.firestore.collection('users'))
   // }),
   bindUser: firestoreAction(function ({ bindFirestoreRef }, docId) {
+    // console.log("-- users.js bindUser--")
+    // console.log(bindFirestoreRef('user', this.$fire.firestore.collection('users').doc(docId)))
     return bindFirestoreRef('user', this.$fire.firestore.collection('users').doc(docId))
   }),
   bindHistgram: firestoreAction(function ({ bindFirestoreRef }) {
+    // console.log("-- users.js bindHistgram--")
+    // console.log(bindFirestoreRef('hist', this.$fire.firestore.collection('users').doc('histgram')))
     return bindFirestoreRef('hist', this.$fire.firestore.collection('users').doc('histgram'))
   }),
   add: firestoreAction(function (_, user) {

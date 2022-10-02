@@ -20,7 +20,6 @@
       -->
       <v-card class="mt-5 mt-8" color="red lighten-5">
         <v-tabs
-          v-model="tab"
           background-color="pink lighten-1"
           centered
           dark
@@ -71,7 +70,7 @@
 </template>
 
 <script>
-// import { mapActions } from 'vuex'  
+import { mapActions } from 'vuex'  
 import RankingCard from '../components/RankingCard.vue'
 import CategoryButton from '../components/CategoryButton.vue'
 
@@ -114,10 +113,15 @@ export default {
         this.user = user
         this.loginUserId = user.photoURL // encourage_idを利用！
         this.isLogined = !!user
-        
+
         // this.bindUsers(this.loginUserId)
         // this.bindHistgram()
-        
+        // this.bindUser(this.user.photoURL).then(() => {
+        //    this.bindHistgram().then(() => {
+        //      this.$router.push('/')
+        //    })
+        // })
+     
         // displaynameの分解⇒ username:univ
         const fidx = user.displayName.indexOf(':');
         const lidx = user.displayName.length
@@ -147,13 +151,29 @@ export default {
       }
     })
   },
-  /*
   mounted() {
-    this.updateUserdata()
+    window.onload = ()=>{
+      this.$fire.auth.onAuthStateChanged((user) => {
+        if (user) {
+          // alert('ログイン後にページが読み込まれました！')
+          this.bindUser(this.user.photoURL).then(() => {
+            this.bindHistgram().then(() => {
+              this.$router.push('/mypage')
+            })
+          })          
+        }
+      })
+    }          
   },
-  */
+
   methods: {
-    // ...mapActions({ bindUsers: 'users/bindUser', bindHistgram: 'users/bindHistgram'}),
+    ...mapActions({
+      bindUser: 'users/bindUser',
+      bindHistgram: 'users/bindHistgram',
+    }),    
+    test () {
+      console.log('loading test')
+    },
     updateUserdata() {
       console.log("updateUserdata", this.userdata)
       this.$nuxt.$emit('updateUserdata', this.userdata)

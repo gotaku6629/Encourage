@@ -87,9 +87,17 @@ export default {
         if (this.user.photoURL === "sample") {
           this.user.photoURL = null
         }
+
+        // user登録（bindが成功するまで終われないようにする）
+        // this.bindUser(this.user.photoURL)
+        // this.bindHistgram()
+        // this.userlogin(this.user.photoURL)
+        // this.userhistgram()
+
         // displaynameの分解⇒ username:univ
         console.log("----- default -----")
         console.log("user", user)
+        console.log("user.photoURL", this.user.photoURL)
         console.log("user.displayName", user.displayName)
 
         const fidx = user.displayName.indexOf(':');
@@ -116,7 +124,20 @@ export default {
     })
   },
   methods: {
-    ...mapActions({ bindNITEvents: 'NITevents/bind', bindNUEvents: 'NUevents/bind'}),
+    // ...mapActions({ bindNITEvents: 'NITevents/bind', bindNUEvents: 'NUevents/bind'}),
+    ...mapActions(
+      { bindUser: 'users/bindUser',
+        bindHistgram: 'users/bindHistgram',
+        bindNITEvents: 'NITevents/bind', 
+        bindNUEvents: 'NUevents/bind'}),
+    async userlogin(userId) {
+      console.log("-- userlogin --", userId)
+      await this.bindUser(userId)
+    },
+    async userhistgram() {
+      console.log("-- userhistgram --")
+      await this.bindHistgram()
+    },    
     async logout() {
       await this.$fire.auth.signOut()
       this.user = null
