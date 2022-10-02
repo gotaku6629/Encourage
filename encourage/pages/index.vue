@@ -8,7 +8,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn style="text-transform: none" color="primary" nuxt to="/ranking"> Go to Ranking > </v-btn>
+            <v-btn style="text-transform: none" color="primary" nuxt to="/ranking"> ランキングページ > </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -47,7 +47,7 @@
           </v-tab>
         </v-tabs>
 
-        <v-card-title> 就活イベント </v-card-title>
+        <v-card-title> 就活イベント (参加数) </v-card-title>
         <v-card-text>
           <v-container>
             <v-row v-for="i in 4" :key="i">
@@ -74,15 +74,16 @@ import { mapActions } from 'vuex'
 import RankingCard from '../components/RankingCard.vue'
 import CategoryButton from '../components/CategoryButton.vue'
 
+
 const eventKindList = [
-  '就活講座',
-  'キャリア設計',
-  '合同説明会',
-  '個社説明会・インターン',
-  '自己分析',
-  'ES',
-  'GD',
+  'キャリア設計',  
+  '合同説明会',  
   '面接',
+  'ES',  
+  'GD',
+  '自己分析',
+  '就活講座',
+  '個社説明会・インターン',
 ]
 
 export default {
@@ -113,14 +114,6 @@ export default {
         this.user = user
         this.loginUserId = user.photoURL // encourage_idを利用！
         this.isLogined = !!user
-
-        // this.bindUsers(this.loginUserId)
-        // this.bindHistgram()
-        // this.bindUser(this.user.photoURL).then(() => {
-        //    this.bindHistgram().then(() => {
-        //      this.$router.push('/')
-        //    })
-        // })
      
         // displaynameの分解⇒ username:univ
         const fidx = user.displayName.indexOf(':');
@@ -179,6 +172,7 @@ export default {
       this.$nuxt.$emit('updateUserdata', this.userdata)
     },
     viewEventList(idx) {
+      // ここは使ってない！
       const eventList = [
         'Class',
         'Career',
@@ -189,7 +183,6 @@ export default {
         'GroupDiscussion',
         'Interview',
       ]
-      // ここは使ってない！
       // const univ = this.$store.getters['users/univ'](this.loginUserId) // Bc={名古屋大学, 名古屋工業大学}
       const univ = 'test'
       console.log("univ:", univ);

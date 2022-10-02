@@ -8,6 +8,9 @@
       <v-card class="mt-5 mt-8" color="red lighten-5">
         <v-card-title> おすすめイベント</v-card-title>
 
+        <div v-if="events.length === 0">
+          業界・職種に対応するイベントがありません
+        </div>
         <v-card-text>
           <v-container>
             <v-row class="justify" align="center">
@@ -92,7 +95,7 @@ export default {
       } else if (user.Bc === '名古屋大学'){
         return this.$store.getters['NUevents/byRecommend'](user)
       } else {
-        return -1
+        return []
       }
       // console.log('return', this.$store.getters['NITevents/byRecommend'](user))
     },

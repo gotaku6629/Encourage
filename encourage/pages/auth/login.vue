@@ -51,8 +51,8 @@
 
               <div class="buttons">
                 <v-form ref="form" lazy-validation>
-                  <v-btn color="grey lighten-5" @click="signup"
-                    >新規登録の方 >
+                  <v-btn color="orange" @click="signup"
+                    >アプリを初めて利用する方 >
                   </v-btn>
                 </v-form>
               </div>

@@ -188,7 +188,7 @@ export default {
                   this.bindUser(this.encourage_Id).then(() => {
                       this.bindHistgram().then(() => {
                         // this.$nuxt.$loading.finish()
-                        this.$router.push('/')
+                        this.$router.push('/mypage')
                       })
                   })
               })

@@ -147,25 +147,17 @@ export default {
         label: 'すべて',
         color: 'white',
       },
-      就活講座: {
-        label: '就活講座',
-        color: 'red',
-      },
       キャリア設計: {
         label: 'キャリア設計',
         color: 'blue',
       },
       合同説明会: {
         label: '合同説明会',
-        color: 'indigo',
+        color: 'orange',
       },
-      '個社説明会・インターン': {
-        label: '個社説明会・インターン',
-        color: 'deep-purple',
-      },
-      自己分析: {
-        label: '自己分析',
-        color: 'cyan',
+      面接: {
+        label: '面接',
+        color: 'red',
       },
       ES: {
         label: 'ES',
@@ -173,11 +165,19 @@ export default {
       },
       GD: {
         label: 'GD',
-        color: 'orange',
+        color: 'yellow',
       },
-      面接: {
-        label: '面接',
-        color: 'grey darken-1',
+      自己分析: {
+        label: '自己分析',
+        color: 'indigo',
+      },                                    
+      就活講座: {
+        label: '就活講座',
+        color: 'pink',
+      },
+      '個社説明会・インターン': {
+        label: '個社説明会・インターン',
+        color: 'deep-purple',
       },
     },
     selectedEvent: {},

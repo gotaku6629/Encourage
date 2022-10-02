@@ -2,7 +2,7 @@
   <v-col cols="12" md="6" sm="12">
     <v-card @click="viewEventList" :color="color">
       <v-card-title class="justify-center">
-        {{ category }}
+        {{ category }} ({{ joinedEventListLength }})
       </v-card-title>
     </v-card>
   </v-col>

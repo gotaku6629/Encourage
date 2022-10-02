@@ -4,11 +4,11 @@
   -->
   <v-card color="white">
     <v-card-title class="justify-center">
-      <h2>Level</h2>
+      <h1>level {{ level }}</h1>
     </v-card-title>
     <center>
       <v-card-text>
-        <h1>{{ level }}</h1>
+        <h4>{{ level }}種類のイベントに参加</h4>
       </v-card-text>
       <v-card-text>
         <h1>{{ rank }} 位 / {{ numberOfAll }}</h1>
