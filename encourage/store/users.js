@@ -42,10 +42,10 @@ export const getters = {
   // all: (state) => {
   //   return state.items
   // },
-  // byId: (state) => (userId) => {
-  //   const res = state.items.filter((user) => user.id === userId)
-  //   return res.length > 0 ? res[0] : null
-  // },
+  byId: (state) => (userId) => {
+    console.log("docUser:", state.user)
+    return state.user
+  },
   numberOfAll: (state) => {
     let res = 0
     const hist = histgramToNumber(state.hist)
@@ -70,6 +70,9 @@ export const getters = {
     return res
   },
   level: (state) => (userId) => {
+    console.log("--- users level ---")
+    console.log("state.user", state.user)
+    console.log("userId", userId)
     return getUserLevel(state.user)
   },
   rank: (state) => (userId) => {
@@ -103,9 +106,13 @@ export const actions = {
   //   return bindFirestoreRef('items', this.$fire.firestore.collection('users'))
   // }),
   bindUser: firestoreAction(function ({ bindFirestoreRef }, docId) {
+    // console.log("-- users.js bindUser--")
+    // console.log(bindFirestoreRef('user', this.$fire.firestore.collection('users').doc(docId)))
     return bindFirestoreRef('user', this.$fire.firestore.collection('users').doc(docId))
   }),
   bindHistgram: firestoreAction(function ({ bindFirestoreRef }) {
+    // console.log("-- users.js bindHistgram--")
+    // console.log(bindFirestoreRef('hist', this.$fire.firestore.collection('users').doc('histgram')))
     return bindFirestoreRef('hist', this.$fire.firestore.collection('users').doc('histgram'))
   }),
   add: firestoreAction(function (_, user) {
@@ -120,7 +127,6 @@ export const actions = {
       myName += user.displayName[i];
     }
     console.log("myName", myName)
-
     let nameUniv = '';
     for (let i=fidx+1; i<lidx; i++){
       nameUniv += user.displayName[i];
@@ -147,7 +153,29 @@ export const actions = {
       return -1
     });
   }),
-  
+  getuser: firestoreAction(function (_, userId) {
+    const docUser = this.$fire.firestore.collection('users').doc(userId)
+    docUser.get().then((doc) => {
+      if (doc.exists){
+        console.log("Document data:", doc.data())        
+        return doc.data()
+      } else {
+        console.log("No such document!")
+        return -1
+      }
+    }).catch((error) => {
+      console.log("Error getting document:", error);
+      return -1
+    });
+  }),
+  updateUser: firestoreAction(function (_, updateuserdata ) {
+    console.log("updateUser:", updateuserdata)
+    const userId = updateuserdata.loginUserId
+    console.log("userId:", userId);
+    this.$fire.firestore.collection('users').doc(userId).update({ '業界': updateuserdata.業界 })
+    this.$fire.firestore.collection('users').doc(userId).update({ '職種': updateuserdata.職種 })
+    return -1
+  }),  
   sampleSet: firestoreAction(function (_, users) {
     for (const user of users) {
       this.$fire.firestore

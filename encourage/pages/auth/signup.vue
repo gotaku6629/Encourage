@@ -15,18 +15,38 @@
           <v-card color="grey lighten-3">
             <div class="user-log-in-body">
               <div class="log-in_phrase">ユーザー登録</div>
+              <!--
+              <td> {{ encourage_Id }} </td>
+              --> 
               <div class="log-in-main">
                 <div class="box">
                   <div class="field">
                     <input
-                      v-model="user_name"
+                      v-model="univ"
+                      type="radio" 
+                      id="one" 
+                      value="名古屋大学"
+                    >
+                    <label for="one">名古屋大学</label>
+                    <input 
+                      v-model="univ"
+                      type="radio" 
+                      id="one" 
+                      value="名古屋工業大学" 
+                    >
+                    <label for="one">名古屋工業大学</label>
+                  </div>                                    
+                  <div class="field">
+                    <input
+                      v-model="username"
                       class="input"
                       type="email"
-                      placeholder="ユーザー名"
+                      placeholder="名前 (e.g. 名工太郎)"
                       name="email"
                       style="margin-top: 20px"
                     />
                   </div>
+                  <!--
                   <div class="field">
                     <input
                       v-model="univ"
@@ -36,13 +56,14 @@
                       name="email"
                       style="margin-top: 20px"
                     />
-                  </div>                  
+                  </div>
+                  -->                
                   <div class="field">
                     <input
-                      v-model="encourage_Id"
+                      v-model="phonenumber"
                       class="input"
                       type="email"
-                      placeholder="エンカレッジId"
+                      placeholder="電話番号 (e.g. 09012345678)"
                       name="email"
                       style="margin-top: 20px"
                     />
@@ -62,16 +83,16 @@
                       v-model="password"
                       class="input"
                       type="password"
-                      placeholder="パスワード"
+                      placeholder="パスワード (6文字以上)"
                       maxlength="20"
                       name="password"
                       style="margin-top: 20px"
                     />
-                  </div>
+                  </div>    
                 </div>
                 <div class="buttons">
                   <v-form ref="form" lazy-validation>
-                    <v-btn color="orange" @click="signup">Sign up</v-btn>
+                    <v-btn color="orange" @click="signup2">Sign up</v-btn>
                   </v-form>
                 </div>
               </div>
@@ -89,9 +110,10 @@ import firebase from 'firebase/compat'
 export default {
   data() {
     return {
-      user_name: '',
+      username: '',
       encourage_Id: '',
       email: '',
+      phonenumber: '',
       password: '',
       user: {},
       idError: '',
@@ -104,42 +126,82 @@ export default {
       bindUser: 'users/bindUser',
       bindHistgram: 'users/bindHistgram',
     }),
-    signup() {
-      // firebase.auth().tenantId = this.univ;
+    // GASからencourage_Idを取得
+    async getUsers(username, phonenumber){  // 非同期関数
+      console.log('------ getUsers --------')
+      this.$nuxt.$loading.start();
+      // 愚直なREST API参考：https://pg-log.com/nuxt-vue-wp-rest-api/
+      if (this.univ === '名古屋工業大学'){
+        this.encourage_Id = await this.$axios.$get(
+          'https://script.google.com/macros/s/AKfycbyFlxjRDK_SXU5jO8eHB811l4l86kvxF41hZYg3KmbUxNJFANfep1KVLu33m_Jqle6y/exec',
+          { params: {username, phonenumber},}
+        )
+      } else if(this.univ === '名古屋大学'){
+        this.encourage_Id = await this.$axios.$get(
+          'https://script.google.com/macros/s/AKfycbz0lak_DYyssEHMA3Z_3WtLaFQlFtUyLpQzeJtbqOLFk_v0ioOmh-mb8LS59yl7oIUb/exec',
+          { params: {username, phonenumber},}
+        )
+      }
+      // .catch(err => { // リクエスト失敗時
+      //   console.log('Get Method Error')
+      //   console.log(err.response)
+      // }
+      // )
+      this.$nuxt.$loading.finish();
+      // console.log(this.encourage_Id)
+      this.encourage_Id = String(this.encourage_Id)
+      // console.log(this.encourage_Id)
+    },
+    async signup2() {
+      /*
+      await this.getUsers(this.username, this.phonenumber)
+      console.log('waiting...')
+      this.signup();
+      */
+      await this.getUsers(this.username, this.phonenumber)
+      .then(() => {
+        this.signup();
+      })
+    },
+    signup() {  
       firebase
         .auth()
-        .createUserWithEmailAndPassword(this.email, this.password)
+        .createUserWithEmailAndPassword(this.email, this.password)     
         .then((userCredential) => {
           this.user = userCredential.user
-          // ユーザー名、photoURLの登録
-          this.user
-            .updateProfile({ // ユーザー表示名とプロフィール写真のURLを更新する！
-              displayName: this.user_name+':'+this.univ,
+          console.log('------ update --------')
+          console.log('username', this.username)
+          console.log('univ', this.univ)
+          console.log('encourage_Id', this.encourage_Id)
+          this.user.updateProfile({        // ユーザー表示名とプロフィール写真のURLを更新する！
+              displayName: this.username+':'+this.univ,
               photoURL: this.encourage_Id, // photoURLで回してみる！
-            })
-            .then(() => {
+          })
+          .then(() => {
               // const res = this.createUser(this.user)
               console.log('------ singup --------')
               console.log('encourage_Id', this.encourage_Id)
-              console.log('user_name', this.user_name)
               console.log('univ', this.univ)
               this.createUser(this.user).then(() => {
-              // this.createUser(this.encourage_Id, this.user_name, this.univ).then(() => {
-                // ユーザーデータをfirestoreから持ってくる
-                this.bindUser(this.encourage_Id).then(() => {
-                  this.bindHistgram().then(() => {
-                    this.$router.push('/')
+              // this.createUser(this.encourage_Id, this.username, this.univ).then(() => {
+                  // ユーザーデータをfirestoreから持ってくる
+                  this.bindUser(this.encourage_Id).then(() => {
+                      this.bindHistgram().then(() => {
+                        // this.$nuxt.$loading.finish()
+                        this.$router.push('/mypage')
+                      })
                   })
-                })
               })
             })
             .catch((error) => {
               this.idError = 'error'
+              console.log('------ error1 --------')
               console.error(error)
             })
         })
         .catch((error) => {
           this.idError = 'error'
+          console.log('------ error2 --------')
           console.error(error)
         })
     },
