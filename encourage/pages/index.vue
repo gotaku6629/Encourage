@@ -7,6 +7,9 @@
             <ranking-card :login-user-id="loginUserId" />
           </v-card-text>
           <v-card-actions>
+            <v-btn class="mx-2" fab dark small color="primary" @click="reload"> 
+              <v-icon dark>mdi-cached</v-icon> 
+            </v-btn>
             <v-spacer />
             <v-btn style="text-transform: none" color="primary" nuxt to="/ranking"> ランキングページ > </v-btn>
           </v-card-actions>
@@ -167,6 +170,9 @@ export default {
     test () {
       console.log('loading test')
     },
+    reload() {
+      location.reload();
+    },    
     updateUserdata() {
       console.log("updateUserdata", this.userdata)
       this.$nuxt.$emit('updateUserdata', this.userdata)
