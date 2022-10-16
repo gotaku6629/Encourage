@@ -40,7 +40,7 @@ export default {
       }
       let link = ''
       const univ = this.$store.getters['users/univ'](this.loginUserId) // Bc={名古屋大学, 名古屋工業大学}
-      console.log('univ:', univ);      
+      console.log('univ:', univ);
       if (univ === '名古屋大学')
         link = '/NU_event/' + eventList[this.category]
       else if (univ === '名古屋工業大学')
@@ -51,7 +51,9 @@ export default {
   },
   computed: {
     joinedEventListLength() {
-      return this.$store.getters['users/joinedEventListLength'](
+      // console.log('userId:', this.loginUserId);
+      // console.log('category:', this.category);
+      return this.$store.getters['users/joinedEventListLength']( // this!
         this.loginUserId,
         this.category
       )

@@ -149,14 +149,17 @@ export default {
   },
   mounted() {
     window.onload = ()=>{
+      // alert('window.onload')
       this.$fire.auth.onAuthStateChanged((user) => {
         if (user) {
-          // alert('ログイン後にページが読み込まれました！')
+          // alert('ユーザー認証しました')
           this.bindUser(this.user.photoURL).then(() => {
-            this.bindHistgram().then(() => {
+            // alert('bindUserが終了')  // ここまでOK
+            this.bindHistgram().then(() => { // 多分、ここができてない...
+              // alert('bindHistgramが終了')  // ここまでOK
               this.$router.push('/mypage')
             })
-          })          
+          })       
         }
       })
     }          

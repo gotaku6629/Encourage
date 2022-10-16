@@ -48,11 +48,16 @@ export const getters = {
   },
   numberOfAll: (state) => {
     let res = 0
-    const hist = histgramToNumber(state.hist)
-    for (const univ of univList) {
-      res += hist[univ].map((i) => Number(i)).reduce((sum, e) => sum + e, 0)
+    if (state.hist.length === 0){
+      return -1
     }
-    return res
+    else{
+      const hist = histgramToNumber(state.hist)
+      for (const univ of univList) {
+        res += hist[univ].map((i) => Number(i)).reduce((sum, e) => sum + e, 0)
+      }
+      return res
+    }
   },
   hist: (state) => {
     const res = {}
@@ -70,24 +75,44 @@ export const getters = {
     return res
   },
   level: (state) => (userId) => {
-    console.log("--- users level ---")
-    console.log("state.user", state.user)
-    console.log("userId", userId)
-    return getUserLevel(state.user)
+    // console.log("--- users level ---")
+    // console.log("state.user", state.user)  // this is null
+    // console.log("state.user.length", state.user.length)  // this is null
+    // console.log("userId", userId) // OK
+    if (state.user.length === 0){
+      return -1
+    }
+    else{
+      return getUserLevel(state.user)
+    }
   },
   rank: (state) => (userId) => {
+    // console.log("--- users rank ---")
+    // console.log("state.user", state.user)
+    // console.log("state.hist", state.hist)
+    // console.log("userId", userId) // OK    
     let rank = 1
-    const userLevel = getUserLevel(state.user)
-    const hist = histgramToNumber(state.hist)
-    for (let i = userLevel + 1; i < 9; i++) {
-      for (const univ of univList) {
-        rank += hist[univ][i]
-      }
+    if (state.hist.length === 0){
+      return -1
     }
-    return rank
+    else{
+      const userLevel = getUserLevel(state.user)
+      const hist = histgramToNumber(state.hist)
+      for (let i = userLevel + 1; i < 9; i++) {
+        for (const univ of univList) {
+          rank += hist[univ][i]
+        }
+      }
+      return rank
+    }
   },
   joinedEventListLength: (state) => (userId, category) => {
-    return state.user[category].length
+    if (state.user.length === 0){
+      return -1
+    }
+    else{
+      return state.user[category].length
+    }
   },
   univ: (state) => (userId) => {
     // console.log("univ --  UserId:", userId);
