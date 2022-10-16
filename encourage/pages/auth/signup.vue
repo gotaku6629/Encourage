@@ -46,18 +46,16 @@
                       style="margin-top: 20px"
                     />
                   </div>
-                  <!--
                   <div class="field">
                     <input
-                      v-model="univ"
+                      v-model="encourage_Id"
                       class="input"
                       type="email"
-                      placeholder="大学名：{名古屋大学, 名古屋工業大学}"
+                      placeholder="en-courage ID (e.g. 123456)"
                       name="email"
                       style="margin-top: 20px"
                     />
                   </div>
-                  -->                
                   <div class="field">
                     <input
                       v-model="phonenumber"
@@ -92,7 +90,7 @@
                 </div>
                 <div class="buttons">
                   <v-form ref="form" lazy-validation>
-                    <v-btn color="orange" @click="signup2">Sign up</v-btn>
+                    <v-btn color="orange" @click="signup">Sign up</v-btn>
                   </v-form>
                 </div>
               </div>
